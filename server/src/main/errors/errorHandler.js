@@ -79,6 +79,6 @@ module.exports = (err, req, res, next) => {
     else if (err instanceof JsonWebTokenError) handleJwtError(err, res)
 
     else {
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ message: "Internal Server Error" + err });
     }
 }

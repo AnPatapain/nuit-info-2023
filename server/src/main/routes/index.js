@@ -5,11 +5,13 @@ const authRouter = require("./auth.router")
 const projectRouter = require("./project.router")
 const notificationRouter = require("./notification.router")
 const profileRouter = require("./profile.router")
+const dailyFactRouter = require("./dailyFact.router")
 
 routes.use(authRouter)
 routes.use(userRouter)
 routes.use(profileRouter)
 routes.use(projectRouter)
 routes.use(notificationRouter)
+routes.use(dailyFactRouter)
 
 module.exports = routes

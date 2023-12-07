@@ -15,7 +15,7 @@ const create = async (data) => {
         throw new ProfileError("Already have profile")
 
     }
-    if (!data.name || !data.github || !data.techSkills || !data.userId) {
+    if (!data.name || !data.userId) {
         throw new RessourceNotFoundError("Missing details for creating profile");
     }
     if (!data.image) {
@@ -23,7 +23,7 @@ const create = async (data) => {
     }
     const { public_id, url: cloudinaryImgUrl } = await cloudinaryService.uploadImage(data.image)
     data = { ...data, image: cloudinaryImgUrl }
-    return await profileDao.create(data.image, data.name, data.github, data.techSkills, data.userId)
+    return await profileDao.create(data.image, data.name, data.userId)
 }
 
 const getFromUserId = async (userId) => {
@@ -49,8 +49,6 @@ const deleteById = async (profileId) => {
     }
 
     // delete the projects related to the profile
-    await projectDao.removeProfileFromProjects(profile)
-
     // Delete the profile
     return await profileDao.deleteById(profileId)
 }
@@ -64,12 +62,6 @@ const update = async (data) => {
     }
     if (data.image) {
         profileUpdate.image = data.image;
-    }
-    if (data.github) {
-        profileUpdate.github = data.github;
-    }
-    if (data.techSkills) {
-        profileUpdate.techSkills = data.techSkills;
     }
     if (profileUpdate.image) {
         const { public_id, url: cloudinaryImgUrl } = await cloudinaryService.uploadImage(profileUpdate.image)
