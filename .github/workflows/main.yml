@@ -73,7 +73,7 @@ jobs:
           SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
         with:
           source-directory: 'output'
-          destination-github-username: 'NGUYEN_An_pataPain'
+          destination-github-username: 'AnPatapain'
           destination-repository-name: 'public_nuitinfo_2023'
           user-email: nkalk192002@gmail.com
           target-branch: main
