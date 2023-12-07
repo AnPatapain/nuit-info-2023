@@ -10,7 +10,7 @@ name: Simple CI CD pipeline for la nuit de l'info
 
 on:
   push: 
-    branches: ["reverse-cicd"]
+    branches: ["reverse-cicd", "main"]
 #  pull_request:
 #    branches: ["main"]
 
