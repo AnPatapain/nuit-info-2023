@@ -3,7 +3,7 @@ import { Radio } from 'components/ui'
 import { useSelector, useDispatch } from 'react-redux'
 import { setNavMode } from 'store/theme/themeSlice'
 import { NAV_MODE_THEMED } from 'constants/theme.constant'
-
+import { t } from 'i18next'
 const NavModeSwitcher = () => {
     const navMode = useSelector((state) => state.theme.navMode)
     const dispatch = useDispatch()
@@ -17,8 +17,8 @@ const NavModeSwitcher = () => {
             value={navMode === NAV_MODE_THEMED ? NAV_MODE_THEMED : 'default'}
             onChange={(val) => onSetNavMode(val)}
         >
-            <Radio value="default">Default</Radio>
-            <Radio value={NAV_MODE_THEMED}>Themed</Radio>
+            <Radio value="default">{t('config.default')}</Radio>
+            <Radio value={NAV_MODE_THEMED}>{t('config.themed')}</Radio>
         </Radio.Group>
     )
 }

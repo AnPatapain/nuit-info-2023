@@ -5,27 +5,27 @@ import { setThemeColor, setThemeColorLevel } from 'store/theme/themeSlice'
 import { HiCheck } from 'react-icons/hi'
 import { useSelector, useDispatch } from 'react-redux'
 import { components } from 'react-select'
-
+import { t } from 'i18next'
 const { Control } = components
 
 const colorList = [
-    { label: 'Red', value: 'red' },
-    { label: 'Orange', value: 'orange' },
-    { label: 'Amber', value: 'amber' },
-    { label: 'Yellow', value: 'yellow' },
-    { label: 'Lime', value: 'lime' },
-    { label: 'Green', value: 'green' },
-    { label: 'Emerald', value: 'emerald' },
-    { label: 'Teal', value: 'teal' },
-    { label: 'Cyan', value: 'cyan' },
-    { label: 'Sky', value: 'sky' },
-    { label: 'Blue', value: 'blue' },
-    { label: 'Indigo', value: 'indigo' },
-    { label: 'Violet', value: 'violet' },
-    { label: 'Purple', value: 'purple' },
-    { label: 'Fuchsia', value: 'fuchsia' },
-    { label: 'Pink', value: 'pink' },
-    { label: 'Rose', value: 'rose' },
+    { label: t("config.red"), value: 'red' },
+    { label: t("config.orange"), value: 'orange' },
+    { label: t("config.amber"), value: 'amber' },
+    { label: t("config.yellow"), value: 'yellow' },
+    { label: t("config.lime"), value: 'lime' },
+    { label: t("config.green"), value: 'green' },
+    { label: t("config.emerald"), value: 'emerald' },
+    { label: t("config.teal"), value: 'teal' },
+    { label: t("config.cyan"), value: 'cyan' },
+    { label: t("config.sky"), value: 'sky' },
+    { label: t("config.blue"), value: 'blue' },
+    { label: t("config.indigo"), value: 'indigo' },
+    { label: t("config.violet"), value: 'violet' },
+    { label: t("config.purple"), value: 'purple' },
+    { label: t("config.fuchsia"), value: 'fuchsia' },
+    { label: t("config.pink"), value: 'pink' },
+    { label: t("config.rose"), value: 'rose' },
 ]
 
 const colorLevelList = [
@@ -62,7 +62,7 @@ const CustomSelectOption = ({ innerProps, label, value, isSelected }) => {
         >
             <div className="flex items-center gap-2">
                 <ColorBadge themeColor={value} />
-                <span>{label}</span>
+                <span>{t(`config.${value}`)}</span>
             </div>
             {isSelected && <HiCheck className="text-emerald-500 text-xl" />}
         </div>
