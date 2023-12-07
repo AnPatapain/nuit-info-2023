@@ -26,11 +26,12 @@ import { getProfile } from 'store/profile/profileSlice'
 import blobUrlToFile from 'utils/blobUrlToFile'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
+import { t } from 'i18next'
 const validationSchema = Yup.object().shape({
     name: Yup.string()
         .min(3, 'Too Short!')
         .max(12, 'Too Long!')
-        .required('User Name Required'),
+        .required('Name Required'),
     github: Yup.string(),
     email: Yup.string().email('Invalid email').required('Email Required'),
     image: Yup.string(),
@@ -60,7 +61,9 @@ const RenderInput = ({ field, form, ...props }) => {
                 {Array.isArray(value) && value.map((option, index) => (
                     <div key={index} className="flex items-center justify-between gap-2">
                         <span className='bg-gray-300 px-2 rounded-md text-gray-700'>{option}</span>
-                        <Button size="xs" variant="solid" type="button" onClick={() => handleRemoveOption(option)} className="!bg-red-500">Remove</Button>
+                        <Button size="xs" variant="solid" type="button" onClick={() => handleRemoveOption(option)} className="!bg-red-500">
+                            {t('actions.remove')}
+                        </Button>
                     </div>
                 ))}
             </div>
@@ -77,7 +80,7 @@ const RenderInput = ({ field, form, ...props }) => {
                         }
                     }}
                 />
-                <Button type="button" variant="solid" onClick={handleAddOption}>Add</Button>
+                <Button type="button" variant="solid" onClick={handleAddOption}>{t('actions.add')}</Button>
             </div>
 
         </div>
@@ -108,17 +111,19 @@ const Profile = ({ data }) => {
         const maxFileSize = 1000000 // 1mb
 
         if (fileList.length >= maxUpload) {
-            return `You can only upload ${maxUpload} file(s)`
+            return t(`profile.you_can_only_upload`, { maxFile: maxUpload })
         }
 
         if (files) {
             for (const f of files) {
                 if (!allowedFileType.includes(f.type)) {
-                    valid = 'Please upload a .jpeg or .png file!'
+                    valid = t('profile.please_upload_an_image_file')
                 }
 
                 if (f.size >= maxFileSize) {
-                    valid = 'Upload image cannot more then 500kb!'
+                    valid = t(`profile.upload_image_cannot_more_than`, {
+                        maxFileSize : maxFileSize / 1000,
+                    })
                 }
             }
         }
@@ -150,11 +155,10 @@ const Profile = ({ data }) => {
                 res = await apiCreateProfile(formData);
             } else {
                 res = await apiUpdateProfile(formData);
-                console.log(res);
             }
             if (res.status === 201 || res.status === 200) {
                 dispatch(getProfile());
-                toast.push(<Notification title={isCreateState ? 'Profile created' : 'Profile updated'} type="success" />, {
+                toast.push(<Notification title={t(isCreateState ? 'profile.profile_created' : 'profile.profile_updated')} type="success" />, {
                     placement: 'top-center',
                 })
             }
@@ -187,12 +191,12 @@ const Profile = ({ data }) => {
                     <Form className='max-w-[700px] mx-auto'>
                         <FormContainer>
                             <FormDesription
-                                title="Personal Information"
-                                desc="Basic info, like your name and address that will displayed in public"
+                                title={t('profile.personal_information')}
+                                desc={t('profile.basic_info_description')}
                             />
                             <FormRow
                                 name="avatar"
-                                label="Avatar"
+                                label={t('profile.avatar')}
                                 {...validatorProps}
                             >
                                 <Field name="image">
@@ -236,14 +240,14 @@ const Profile = ({ data }) => {
                             </FormRow>
                             <FormRow
                                 name="name"
-                                label="Name"
+                                label={t('profile.name')}
                                 {...validatorProps}
                             >
                                 <Field
                                     type="text"
                                     autoComplete="off"
                                     name="name"
-                                    placeholder="Name"
+                                    placeholder={t('profile.name')}
                                     component={Input}
                                     prefix={
                                         <HiOutlineUserCircle className="text-xl" />
@@ -252,7 +256,7 @@ const Profile = ({ data }) => {
                             </FormRow>
                             <FormRow
                                 name="email"
-                                label="Email"
+                                label={t('profile.email')}
 
                                 {...validatorProps}
                             >
@@ -303,7 +307,7 @@ const Profile = ({ data }) => {
                                     type="button"
                                     onClick={resetForm}
                                 >
-                                    Reset
+                                    {t('actions.reset')}
                                 </Button>
                                 <Button
                                     variant="solid"
@@ -311,8 +315,8 @@ const Profile = ({ data }) => {
                                     type="submit"
                                 >
                                     {isSubmitting ? 
-                                        (isCreateState ? 'Creating' : 'Updating') : 
-                                        (isCreateState ? 'Create' : 'Update')}
+                                        (isCreateState ? t('actions.creating') : t('actions.updating')) : 
+                                        (isCreateState ? t('actions.create') : t('actions.update'))}
                                 </Button>
                             </div>
                         </FormContainer>

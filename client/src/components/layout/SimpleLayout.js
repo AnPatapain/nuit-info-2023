@@ -7,6 +7,7 @@ import MobileNav from 'components/template/MobileNav'
 import HorizontalNav from 'components/template/HorizontalNav'
 import View from 'views'
 import { useSelector } from 'react-redux'
+import LanguageSelector from 'components/template/LanguageSelector'
 const HeaderActionsStart = () => {
     return (
         <>
@@ -19,6 +20,7 @@ const HeaderActionsStart = () => {
 const HeaderActionsEnd = () => {
     return (
         <>
+            <LanguageSelector />
             <SidePanel />
             <UserDropdown hoverable={false} />
         </>
