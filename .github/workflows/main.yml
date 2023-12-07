@@ -67,16 +67,15 @@ jobs:
           docker cp temp_container:/workspace/.env output
           docker cp temp_container:/workspace/Dockerfile output
 
-      - name: push code to another public repo
-        uses: cpina/github-action-push-to-another-repository@ssh-deploy-key
+      - name: Pushes to another repository
+        uses: cpina/github-action-push-to-another-repository@main
         env:
-          API_TOKEN_GITHUB: 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
+          SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
         with:
-          source-directory: output/
+          source-directory: 'output'
           destination-github-username: 'NGUYEN_An_pataPain'
           destination-repository-name: 'public_nuitinfo_2023'
           user-email: nkalk192002@gmail.com
-          commit-message: pushed from $GITHUB_REF
           target-branch: main
 
 #  deploy_backend_to_heroku:
