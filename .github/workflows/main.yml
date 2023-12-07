@@ -15,10 +15,11 @@ on:
 #    branches: ["main"]
 
 env:
-#    DOCKERHUB_USERNAME: "keanlk19"
-#    DOCKERHUB_PASSWORD: "Keanlk192002"
-    DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-    DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    DOCKERHUB_USERNAME: "keanlk19"
+    DOCKERHUB_PASSWORD: "Keanlk192002"
+    API_TOKEN_GITHUB: "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"
+#    DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+#    DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
 jobs:
   push_backend_container_to_dockerhub:
@@ -69,7 +70,7 @@ jobs:
       - name: push code to another public repo
         uses: cpina/github-action-push-to-another-repository@ssh-deploy-key
         env:
-          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+          API_TOKEN_GITHUB: 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
         with:
           source-directory: output/
           destination-github-username: 'NGUYEN_An_pataPain'
