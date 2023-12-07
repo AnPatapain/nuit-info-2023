@@ -13,8 +13,8 @@ name: Simple CI CD pipeline for la nuit de l'info
 on:
   push: 
     branches: ["reverse-cicd", "main"]
-#  pull_request:
-#    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 env:
     DOCKERHUB_USERNAME: "keanlk19"
