@@ -16,9 +16,14 @@ const Logo = (props) => {
                 ...{ width: logoWidth },
             }}
         >
-            <img
+            {/* <img
                 className={imgClass}
                 src={`${LOGO_SRC_PATH}logo-${mode}-${type}.png`}
+                alt={`${APP_NAME} logo`}
+            /> */}
+            <img
+                className={imgClass}
+                src={`${LOGO_SRC_PATH}EcoHub-${mode}.png`}
                 alt={`${APP_NAME} logo`}
             />
         </div>
