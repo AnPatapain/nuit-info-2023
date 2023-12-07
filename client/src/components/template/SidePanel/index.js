@@ -6,7 +6,7 @@ import SidePanelContent from './SidePanelContent'
 import withHeaderItem from 'utils/hoc/withHeaderItem'
 import { setPanelExpand } from 'store/theme/themeSlice'
 import { useSelector, useDispatch } from 'react-redux'
-
+import { t } from 'i18next'
 export const SidePanel = (props) => {
     const dispatch = useDispatch()
 
@@ -38,7 +38,7 @@ export const SidePanel = (props) => {
                 <HiOutlineCog />
             </div>
             <Drawer
-                title="Theme Config"
+                title={t('config.theme_config')}
                 isOpen={panelExpand}
                 onClose={closePanel}
                 onRequestClose={closePanel}
