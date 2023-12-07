@@ -90,20 +90,18 @@ jobs:
 
       - name: extract filesystem from docker container and copy to local file system of github runner
         run: |
-          docker cp backend_container:/workspace/* output/server
-#          docker cp backend_container:/workspace/src output/server
-#          docker cp backend_container:/workspace/package.json output/server
-#          docker cp backend_container:/workspace/package-lock.json output/server
-#          docker cp backend_container:/workspace/uploads output/server
-#          docker cp backend_container:/workspace/.env output/server
-#          docker cp backend_container:/workspace/Dockerfile output/server
+          docker cp backend_container:/workspace/src output/server
+          docker cp backend_container:/workspace/package.json output/server
+          docker cp backend_container:/workspace/package-lock.json output/server
+          docker cp backend_container:/workspace/uploads output/server
+          docker cp backend_container:/workspace/.env output/server
+          docker cp backend_container:/workspace/Dockerfile output/server
 
-          docker cp frontend_container:/workspace/* output/client
-#          docker cp frontend_container:/workspace/public output/client
-#          docker cp frontend_container:/workspace/src output/client
-#          docker cp frontend_container:/workspace/package.json output/client
-#          docker cp frontend_container:/workspace/package-lock.json output/client
-#          docker cp frontend_container:/workspace/Dockerfile output/client
+          docker cp frontend_container:/workspace/public output/client
+          docker cp frontend_container:/workspace/src output/client
+          docker cp frontend_container:/workspace/package.json output/client
+          docker cp frontend_container:/workspace/package-lock.json output/client
+          docker cp frontend_container:/workspace/Dockerfile output/client
 
       - name: Pushes to another repository
         uses: cpina/github-action-push-to-another-repository@main
