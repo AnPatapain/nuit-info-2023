@@ -20,8 +20,6 @@ env:
     DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
     DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
     API_TOKEN_GITHUB: "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"
-#    DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-#    DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
 jobs:
   push_backend_container_to_dockerhub:
@@ -46,6 +44,7 @@ jobs:
           docker tag nuitinfo_backend ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_backend
           docker push ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_backend
 
+
   push_frontend_container_to_dockerhub:
     name: Push frontend dockerhub
     runs-on: ubuntu-latest
@@ -68,6 +67,7 @@ jobs:
         run: |
           docker tag nuitinfo_frontend ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_frontend
           docker push ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_frontend
+
 
   challenge_nuitinfo:
     name: Challenge Nuitinfo
@@ -122,32 +122,31 @@ jobs:
           user-email: nkalk192002@gmail.com
           target-branch: main
 
-#  deploy_backend_to_heroku:
-#    name: Deploy backend to heroku
-#    runs-on: ubuntu-latest
-#    needs: [challenge_nuitinfo]
-#    steps:
-#      - uses: actions/checkout@v4
-#
-#      - name: Deploy to heroku
-#        uses: akhileshns/heroku-deploy@v3.12.14 # This is the action
-#        with:
-#          heroku_api_key: "68cca895-d172-41ff-a3a1-67e439e77a9a"
-#          heroku_app_name: "nuitinfo-backend-dragon" #Must be unique in Heroku
-#          heroku_email: "ke_an.nguyen@insa-cvl.fr"
-#          appdir: "server"
+  deploy_backend_to_heroku:
+    name: Deploy backend to heroku
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to heroku
+        uses: akhileshns/heroku-deploy@v3.12.14 # This is the action
+        with:
+          heroku_api_key: "68cca895-d172-41ff-a3a1-67e439e77a9a"
+          heroku_app_name: "nuitinfo-backend-dragon" #Must be unique in Heroku
+          heroku_email: "ke_an.nguyen@insa-cvl.fr"
+          appdir: "server"
 
 
-#  deploy_frontend_container_to_dockerhub:
-#    name: deploy frontend container to heroku
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v4
-#
-#      - name: Deploy frontend to heroku
-#        uses: akhileshns/heroku-deploy@v3.12.14 # This is the action
-#        with:
-#          heroku_api_key: "68cca895-d172-41ff-a3a1-67e439e77a9a"
-#          heroku_app_name: "nuitinfo-frontend-dragon"
-#          heroku_email: "ke_an.nguyen@insa-cvl.fr"
-#          appdir: "client"
+  deploy_frontend_container_to_dockerhub:
+    name: deploy frontend container to heroku
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy frontend to heroku
+        uses: akhileshns/heroku-deploy@v3.12.14 # This is the action
+        with:
+          heroku_api_key: "68cca895-d172-41ff-a3a1-67e439e77a9a"
+          heroku_app_name: "nuitinfo-frontend-dragon"
+          heroku_email: "ke_an.nguyen@insa-cvl.fr"
+          appdir: "client"
