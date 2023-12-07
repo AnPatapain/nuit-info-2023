@@ -17,8 +17,8 @@ on:
     branches: ["main"]
 
 env:
-    DOCKERHUB_USERNAME: "keanlk19"
-    DOCKERHUB_PASSWORD: "Keanlk192002"
+    DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+    DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
     API_TOKEN_GITHUB: "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"
 #    DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
 #    DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
