@@ -1,46 +1,30 @@
-name: Simple CI CD pipeline (git commit -> build and test on windows, linux -> push image to dockerhub, deploy to Heroku)
+#Simple CI CD pipeline (git commit -> build and test on windows, linux ->
+#                                     push backend container image to dockerhub, deploy to Heroku ->
+#                                     pull backend container from docker hub
+#                                     extract code from backend container and copy to
+#
+#
+#
+#
+name: Simple CI CD pipeline for la nuit de l'info
 
 on:
   push: 
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
+    branches: ["reverse-cicd"]
+#  pull_request:
+#    branches: ["main"]
 
 env:
-    DOCKERHUB_USERNAME: "keanlk19"
-    DOCKERHUB_PASSWORD: "Keanlk192002"
-#   DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-#   DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+#    DOCKERHUB_USERNAME: "keanlk19"
+#    DOCKERHUB_PASSWORD: "Keanlk192002"
+    DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+    DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
 jobs:
-#   build_backend:
-#     name: build and test backend
-#     strategy:
-#       matrix:
-#         node-version: ['18.x']
-#         os: [ubuntu-latest, windows-latest]
-#     runs-on: ${{ matrix.os }}
-#     steps:
-#       - uses: actions/checkout@v4
-      
-#       - uses: pnpm/action-setup@v2
-#         with:
-#           version: 8
-      
-#       - name: Use Node.js ${{ matrix.node-version }}
-#         uses: actions/setup-node@v3
-#         with:
-#           node-version: ${{ matrix.node-version }}
-
-#       - run: |
-#             cd server 
-#             npm install
-#             npm run --if-present build
-
-  deploy_backend:
+  push_backend_container_to_dockerhub:
     name: Push backend to dockerhub and Deploy container 
     runs-on: ubuntu-latest
-    # needs: [build_backend]
+
     steps:
       - uses: actions/checkout@v4
 
@@ -60,70 +44,83 @@ jobs:
           docker tag nuitinfo_backend ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_backend
           docker push ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_backend
 
-      - name: Deploy to heroku
-        uses: akhileshns/heroku-deploy@v3.12.14 # This is the action
-        with:
-          heroku_api_key: "68cca895-d172-41ff-a3a1-67e439e77a9a"
-          heroku_app_name: "nuitinfo-backend-dragon" #Must be unique in Heroku
-          heroku_email: "ke_an.nguyen@insa-cvl.fr"
-          appdir: "server"
-
-
-
-#   build_frontend:
-#     name: build and test frontend
-#     strategy:
-#       matrix:
-#         node-version: ['18.x']
-#         os: [ubuntu-latest, windows-latest]
-#     runs-on: ${{ matrix.os }}
-#     steps:
-#       - uses: actions/checkout@v4
-      
-#       - uses: pnpm/action-setup@v2
-#         with:
-#           version: 8
-      
-#       - name: Use Node.js ${{ matrix.node-version }}
-#         uses: actions/setup-node@v3
-#         with:
-#           node-version: ${{ matrix.node-version }}
-
-#       - run: |
-#             cd client
-#             npm install
-#             npm run build
-#         env: 
-#             CI: ""
-
-            
-  deploy_frontend:
-    name: Push frontend to dockerhub deploy to heroku
+  challenge_nuitinfo:
+    name: Pull backend container from dockerhub, extract and push to other github remote repo
     runs-on: ubuntu-latest
-    # needs: [build_frontend]
+    needs: [push_backend_container_to_dockerhub]
     steps:
       - uses: actions/checkout@v4
 
-      - name: login to Dockerhub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ env.DOCKERHUB_USERNAME }}
-          password: ${{ env.DOCKERHUB_PASSWORD }}
-
-      - name: Build docker image
+      - name: Pull docker image from Dockerhub
         run: |
-          cd client
-          docker build -t nuitinfo_frontend .
-        
-      - name: Push docker image to Dockerhub
-        run: |
-          docker tag nuitinfo_frontend ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_frontend
-          docker push ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_frontend
+          docker pull ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_backend
+          docker run -itd --name temp_container ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_backend
+          mkdir output
 
-      - name: Deploy frontend to heroku
-        uses: akhileshns/heroku-deploy@v3.12.14 # This is the action
+      - name: extract filesystem from docker container and copy to local file system of github runner
+        run: |
+          docker cp temp_container:/workspace/src output
+          docker cp temp_container:/workspace/package.json output
+          docker cp temp_container:/workspace/package-lock.json output
+          docker cp temp_container:/workspace/uploads output
+          docker cp temp_container:/workspace/.env output
+          docker cp temp_container:/workspace/Dockerfile output
+
+      - name: push code to another public repo
+        uses: cpina/github-action-push-to-another-repository@ssh-deploy-key
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          heroku_api_key: "68cca895-d172-41ff-a3a1-67e439e77a9a"
-          heroku_app_name: "nuitinfo-frontend-dragon"
-          heroku_email: "ke_an.nguyen@insa-cvl.fr"
-          appdir: "client"
+          source-directory: output/
+          destination-github-username: 'NGUYEN_An_pataPain'
+          destination-repository-name: 'public_nuitinfo_2023'
+          user-email: nkalk192002@gmail.com
+          commit-message: pushed from $GITHUB_REF
+          target-branch: main
+
+#  deploy_backend_to_heroku:
+#    name: Deploy backend to heroku
+#    runs-on: ubuntu-latest
+#    needs: [challenge_nuitinfo]
+#    steps:
+#      - uses: actions/checkout@v4
+#
+#      - name: Deploy to heroku
+#        uses: akhileshns/heroku-deploy@v3.12.14 # This is the action
+#        with:
+#          heroku_api_key: "68cca895-d172-41ff-a3a1-67e439e77a9a"
+#          heroku_app_name: "nuitinfo-backend-dragon" #Must be unique in Heroku
+#          heroku_email: "ke_an.nguyen@insa-cvl.fr"
+#          appdir: "server"
+
+            
+#  deploy_frontend:
+#    name: Push frontend to dockerhub deploy to heroku
+#    runs-on: ubuntu-latest
+#    # needs: [build_frontend]
+#    steps:
+#      - uses: actions/checkout@v4
+#
+#      - name: login to Dockerhub
+#        uses: docker/login-action@v3
+#        with:
+#          username: ${{ env.DOCKERHUB_USERNAME }}
+#          password: ${{ env.DOCKERHUB_PASSWORD }}
+#
+#      - name: Build docker image
+#        run: |
+#          cd client
+#          docker build -t nuitinfo_frontend .
+#
+#      - name: Push docker image to Dockerhub
+#        run: |
+#          docker tag nuitinfo_frontend ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_frontend
+#          docker push ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_frontend
+#
+#      - name: Deploy frontend to heroku
+#        uses: akhileshns/heroku-deploy@v3.12.14 # This is the action
+#        with:
+#          heroku_api_key: "68cca895-d172-41ff-a3a1-67e439e77a9a"
+#          heroku_app_name: "nuitinfo-frontend-dragon"
+#          heroku_email: "ke_an.nguyen@insa-cvl.fr"
+#          appdir: "client"
