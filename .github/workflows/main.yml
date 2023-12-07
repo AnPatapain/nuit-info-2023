@@ -99,9 +99,17 @@ jobs:
 
           docker cp frontend_container:/workspace/public output/client
           docker cp frontend_container:/workspace/src output/client
+          docker cp frontend_container:/workspace/.dockerignore output/client
+          docker cp frontend_container:/workspace/.eslintrc.json output/client
+          docker cp frontend_container:/workspace/.gitignore output/client
+          docker cp frontend_container:/workspace/.prettierignore output/client
+          docker cp frontend_container:/workspace/.prettierrc.json output/client
+          docker cp frontend_container:/workspace/Dockerfile output/client
+          docker cp frontend_container:/workspace/jsconfig.json output/client
+          docker cp frontend_container:/workspace/postcss.config.js output/client
+          docker cp frontend_container:/workspace/tailwind.config.js output/client
           docker cp frontend_container:/workspace/package.json output/client
           docker cp frontend_container:/workspace/package-lock.json output/client
-          docker cp frontend_container:/workspace/Dockerfile output/client
 
       - name: Pushes to another repository
         uses: cpina/github-action-push-to-another-repository@main
