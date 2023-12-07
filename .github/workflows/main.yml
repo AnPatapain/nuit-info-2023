@@ -57,15 +57,16 @@ jobs:
           docker pull ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_backend
           docker run -itd --name temp_container ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_backend
           mkdir output
+          mkdir output/server
 
       - name: extract filesystem from docker container and copy to local file system of github runner
         run: |
-          docker cp temp_container:/workspace/src output
-          docker cp temp_container:/workspace/package.json output
-          docker cp temp_container:/workspace/package-lock.json output
-          docker cp temp_container:/workspace/uploads output
-          docker cp temp_container:/workspace/.env output
-          docker cp temp_container:/workspace/Dockerfile output
+          docker cp temp_container:/workspace/src output/server
+          docker cp temp_container:/workspace/package.json output/server
+          docker cp temp_container:/workspace/package-lock.json output/server
+          docker cp temp_container:/workspace/uploads output/server
+          docker cp temp_container:/workspace/.env output/server
+          docker cp temp_container:/workspace/Dockerfile output/server
 
       - name: Pushes to another repository
         uses: cpina/github-action-push-to-another-repository@main
