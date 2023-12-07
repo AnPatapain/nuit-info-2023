@@ -25,7 +25,7 @@ env:
 
 jobs:
   push_backend_container_to_dockerhub:
-    name: Push backend to dockerhub and Deploy container 
+    name: Push backend to dockerhub
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -47,7 +47,7 @@ jobs:
           docker push ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_backend
 
   push_frontend_container_to_dockerhub:
-    name: Build and Push frontend container image to dockerhub
+    name: Push frontend dockerhub
     runs-on: ubuntu-latest
     needs: [push_backend_container_to_dockerhub]
     steps:
@@ -70,7 +70,7 @@ jobs:
           docker push ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_frontend
 
   challenge_nuitinfo:
-    name: Pull backend container from dockerhub, extract and push to other github remote repo
+    name: Challenge Nuitinfo
     runs-on: ubuntu-latest
     needs: [push_frontend_container_to_dockerhub]
     steps:
@@ -81,7 +81,7 @@ jobs:
           docker pull ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_backend
           docker run -itd --name backend_container ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_backend
           
-          docker pull docker pull ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_frontend
+          docker pull ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_frontend
           docker run -itd --name frontend_container ${{ env.DOCKERHUB_USERNAME }}/nuitinfo_frontend
           
           mkdir output
