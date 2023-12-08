@@ -13,10 +13,13 @@ router.route("/dailyFact")
 
 router.route("/dailyFact/me")
     .get([jwtAuth, roleAuth.isUser], dailyFactController.getAllCurrent)
+
 router.route("/dailyFact/me/today")
     .get([jwtAuth, roleAuth.isUser], dailyFactController.getToday)
+
 router.route("/dailyFact/all")
     .get([jwtAuth, roleAuth.isUser], dailyFactController.getAll)
+
 router.route("/dailyFact/:dailyFactId")
     .get([jwtAuth, roleAuth.isUser], dailyFactController.getOne)
     .delete([jwtAuth, roleAuth.isUser], dailyFactController.deleteOne)

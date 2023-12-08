@@ -69,7 +69,6 @@ const deleteOne = async (data) => {
 }
 
 const changeVote = async (data) => {
-    console.log(data);
     if (!data.dailyFactId) {
         throw new RessourceNotFoundError("dailyFactId missing")
     }
@@ -81,6 +80,26 @@ const changeVote = async (data) => {
     await dailyFact.save()
     return dailyFact
 }
+const getPageRandom = async (data) => {
+    if (!data.page) {
+        throw new RessourceNotFoundError("page missing")
+    }
+    if (!data.pageSize) {
+        throw new RessourceNotFoundError("pageSize missing")
+    }
+    const dailyFacts = await dailyFactDao.getPageRandom(data.page, data.pageSize)
+    return dailyFacts
+}
+const getPage = async (data) => {
+    if (!data.page) {
+        throw new RessourceNotFoundError("page missing")
+    }
+    if (!data.pageSize) {
+        throw new RessourceNotFoundError("pageSize missing")
+    }
+    const dailyFacts = await dailyFactDao.getPage(data.page, data.pageSize)
+    return dailyFactDao
+}
 const dailyFactService = {
     createOne,
     getFromFactId,
@@ -89,6 +108,8 @@ const dailyFactService = {
     getAllCurrent,
     getToday,
     changeVote,
+    getPage,
+    getPageRandom,
 }
 
 module.exports = dailyFactService
