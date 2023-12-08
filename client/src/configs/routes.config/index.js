@@ -22,10 +22,4 @@ export const protectedRoutes = [
         component: React.lazy(() => import('views/Fact')),
         authority: [],
     },
-    {
-        key: 'scrum',
-        path: '/scrum',
-        component: React.lazy(() => import('views/ScrumBoard')),
-        authority: [],
-    },
 ]

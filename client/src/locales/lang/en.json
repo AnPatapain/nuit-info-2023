@@ -51,6 +51,20 @@
         "upload_image_cannot_more_than": "Upload image cannot more than {{maxFileSize}} kb!"
 
     },
+    "fact": {
+        "too_short": "Too short",
+        "too_long": "Too long",
+        "fact_required":"Fact Required",
+        "title_required":"Title Required",
+        "title": "Title",
+        "fact": "Fact",
+        "enter_fact": "Enter Fact",
+        "fact_description": "Fact Description",
+        "share_your_daily_fact": "Share your daily fact",
+        "today_new_fact": "Today New Fact",
+        "daily_fact": "Daily Fact",
+        "image": "Image"
+    },
     "actions": {
         "reset": "Reset",
         "save": "Save",
@@ -68,6 +82,8 @@
         "remove": "Remove",
         "view": "View",
         "browse": "Browse",
-        "upload": "Upload"
+        "upload": "Upload",
+        "submit": "Submit",
+        "submitting": "Submitting"
     }
 }

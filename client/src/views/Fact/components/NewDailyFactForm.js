@@ -7,103 +7,118 @@ import {
     FormItem,
     FormContainer,
     hooks,
+    Upload
 } from 'components/ui'
+import blobUrlToFile from 'utils/blobUrlToFile'
 import { Field, Form, Formik, useField } from 'formik'
-import { HiCheck, HiHashtag } from 'react-icons/hi'
+import { HiOutlineUser } from 'react-icons/hi'
+import { BsFillImageFill } from "react-icons/bs";
 import * as Yup from 'yup'
-import { FaGithub,FaStackOverflow } from "react-icons/fa";
+import { FaGithub, FaStackOverflow } from "react-icons/fa";
+import { t } from 'i18next'
+import FormRow from './FormRow'
 const validationSchema = Yup.object().shape({
-    title: Yup.string().min(3, 'Too Short!').required('Title required'),
-    content: Yup.string().required('Title required'),
-    assignees: Yup.array().min(1, 'Assignee required'),
-    rememberMe: Yup.bool(),
+    title: Yup.string().min(3, t("fact.too_short")).required(t("fact.title_required")),
+    fact: Yup.string().min(3, t("fact.too_short")).required(t("fact.fact_required")),
 })
-const RenderInput = ({ field, form,...props }) => {
-  const { name } = field;
-    const value = form.values[name];
-    const [inputValue, setInputValue] = useState('');
-
-    const handleAddOption = () => {
-        if (inputValue && !value.includes(inputValue)) {
-            const newValue = [...value, inputValue];
-            form.setFieldValue(name, newValue);
-            setInputValue('');
-        }
-    };
-
-    const handleRemoveOption = (option) => {
-        const newValue = value.filter((item) => item !== option);
-        form.setFieldValue(name, newValue);
-    };
-
-  return (
-    <div className=''>
-      <div className='flex items-center gap-2 my-2 overflow-x-auto scroll-mb-4'>
-      {Array.isArray(value) && value.map((option, index) => (
-                    <div key={index} className="flex items-center justify-between gap-2">
-                        <span className='bg-gray-300 px-2 rounded-md text-gray-700'>{option}</span>
-                        <Button size="xs" variant="solid" type="button" onClick={() => handleRemoveOption(option)} className="!bg-red-500">Remove</Button>
-                    </div>
-                ))}
-      </div>
-      <div className='flex items-center gap-2 my-2'>
-      <Input
-        {...field}
-        {...props}
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            handleAddOption();
-          }
-        }}
-      />
-      <Button variant="solid" onClick={handleAddOption}>Add</Button>
-      </div>
-      
-    </div>
-  );
-};
 const NewIdeaForm = () => {
-
-    const onSubmit = (formValue, setSubmitting) => {
-        setSubmitting(true)
-        console.log(formValue);
-        const { title, description, demo, desiredSize, techStack, hashtag } = formValue
-
-      
-        const values = {
-            name: title,
-            description,
-            demo,
-            desiredSize,
-            stack: techStack,
-            hashtag,
+    const onSetFormFile = (form, field, files) => {
+        if (files && files[0]) {
+            form.setFieldValue(field.name, URL.createObjectURL(files[0]))
         }
-        console.log(values);
+    }
+    const beforeUpload = (files, fileList) => {
+        let valid = true
+        const maxUpload = 1
+        const allowedFileType = ['image/jpeg', 'image/png']
+        const maxFileSize = 1000000 // 1mb
+
+        if (fileList.length >= maxUpload) {
+            return t(`profile.you_can_only_upload`, { maxFile: maxUpload })
+        }
+
+        if (files) {
+            for (const f of files) {
+                if (!allowedFileType.includes(f.type)) {
+                    valid = t('profile.please_upload_an_image_file')
+                }
+
+                if (f.size >= maxFileSize) {
+                    valid = t(`profile.upload_image_cannot_more_than`, {
+                        maxFileSize: maxFileSize / 1000,
+                    })
+                }
+            }
+        }
+
+        return valid
+    }
+    const onSubmit = async (formValue, setSubmitting) => {
+        setSubmitting(true)
+        const { title, fact, image } = formValue
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('fact', fact);
+
+
+
+        try {
+            const imageFile = await blobUrlToFile(image, "image");
+            if (imageFile instanceof File) {
+                formData.append('image', imageFile);
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
         <Formik
             initialValues={{
                 title: '',
-                techStack: ["react", "node"],
-                hashtag: ["web"],
-                description: '',
-                demo: '',
-                desiredSize: '',
+                fact: '',
+                image: '',
             }}
             validationSchema={validationSchema}
-            onSubmit={(values, { resetForm, setSubmitting }) => {
-                onSubmit(values, setSubmitting)
+            onSubmit={(values, { setSubmitting }) => {
+                onSubmit(values, setSubmitting);
             }}
         >
-            {({ touched, errors, values, resetForm, isSubmitting }) => (
+            {({ touched, errors, values, isSubmitting }) => {
+                const validatorProps = { touched, errors }
+                return (
                 <Form>
                     <FormContainer className="">
+                        <FormRow name="image" label={t('fact.image')} {...validatorProps}>
+                            <Field name="image">
+                                {({ field, form }) => {
+                                    const imageProps = field.value
+                                        ? { src: field.value }
+                                        : {};
+                                    return (
+                                        <Upload
+                                            accept="image/*"
+                                            beforeUpload={beforeUpload}
+                                            className="cursor-pointer"
+                                            onChange={(files) => onSetFormFile(form, field, files)}
+                                            onFileRemove={(files) => onSetFormFile(form, field, files)}
+                                            showList={false}
+                                            uploadLimit={1}
+                                        >
+                                            <Avatar
+                                                className="border-2 border-white dark:border-gray-800 shadow-lg"
+                                                size={100}
+                                                shape="square"
+                                                icon={<BsFillImageFill />}
+                                                {...imageProps}
+                                            />  
+                                        </Upload>
+                                    );
+                                }}
+                            </Field>
+                        </FormRow>
                         <FormItem
-                            label="Title"
+                            label={t("fact.title")}
                             invalid={errors.title && touched.title}
                             errorMessage={errors.title}
                         >
@@ -111,82 +126,30 @@ const NewIdeaForm = () => {
                                 type="text"
                                 autoComplete="off"
                                 name="title"
-                                placeholder="Enter title"
+                                placeholder={t("fact.enter_fact")}
                                 component={Input}
                             />
                         </FormItem>
                         <FormItem
-                            label={<div className='flex items-center gap-2'><HiHashtag /><span>Hashtags</span></div>}
-                            invalid={errors.hashtag && touched.hashtag}
-                            errorMessage={errors.hashtag}
+                            label={t("fact.fact_description")}
+                            invalid={errors.fact && touched.fact}
+                            errorMessage={errors.fact}
                         >
                             <Field
+                                as="textarea"
                                 type="text"
                                 autoComplete="off"
-                                name="hashtag"
-                                placeholder="Enter tags"
-                                component={RenderInput}
-                            />
-                        </FormItem>
-                        <FormItem
-                            label={<div className='flex items-center gap-2'><FaStackOverflow/><span>Tech stack</span></div>}
-                            invalid={errors.techStack && touched.techStack}
-                            errorMessage={errors.techStack}
-                        >
-                            <Field
-                                type="text"
-                                autoComplete="off"
-                                name="techStack"
-                                placeholder="Add tech stack"
-                                component={RenderInput}
-                            />
-                        </FormItem>
-                        <FormItem
-                            label={<div className='flex items-center gap-2'><FaGithub/> <span>Demo Link</span></div>}
-                            invalid={errors.demo && touched.demo}
-                            errorMessage={errors.demo}
-                        >
-                            <Field
-                                type="text"
-                                autoComplete="off"
-                                name="demo"
-                                placeholder="Enter demo"
-                                component={Input}
-                            />
-                        </FormItem>
-                        <FormItem
-                            label="Description"
-                            invalid={errors.description && touched.description}
-                            errorMessage={errors.description}
-                        >
-                            <Field
-                                textArea
-                                type="text"
-                                autoComplete="off"
-                                name="description"
-                                placeholder="Enter description"
-                                component={Input}
-                            />
-                        </FormItem>
-                        <FormItem
-                            label="Desired team size"
-                            invalid={errors.desiredSize && touched.desiredSize}
-                            errorMessage={errors.desiredSize}
-                        >
-                            <Field
-                                type="number"
-                                autoComplete="off"
-                                name="desiredSize"
-                                placeholder="Enter desired team size"
+                                name="fact"
+                                placeholder={t("fact.fact_description")}
                                 component={Input}
                             />
                         </FormItem>
                         <Button block variant="solid" type="submit" loading={isSubmitting}>
-                            {isSubmitting ? "Submitting" : "Submit"}
+                            {isSubmitting ? t("actions.submitting") : t("actions.submit")}
                         </Button>
                     </FormContainer>
                 </Form>
-            )}
+            )}}
         </Formik>
     )
 }

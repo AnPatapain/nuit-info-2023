@@ -25,7 +25,7 @@ const mockData = [
       ],
       "title": "Test Daily Fact 1",
       "fact": "This is a sample daily fact.",
-      "image": "https://example.com/image1.jpg",
+      "image": "https://placehold.co/600x400/EEE/31343C",
       "timeStamp": "2023-01-01T00:00:00.000Z"
     },
     {
@@ -40,7 +40,7 @@ const mockData = [
       ],
       "title": "Test Daily Fact 2",
       "fact": "Another sample daily fact.",
-      "image": "https://example.com/image2.jpg",
+      "image": "https://placehold.co/600x400/EEE/31343C",
       "timeStamp": "2023-01-02T00:00:00.000Z"
     },
     {
@@ -60,7 +60,7 @@ const mockData = [
       ],
       "title": "Test Daily Fact 3",
       "fact": "One more sample daily fact.",
-      "image": "https://example.com/image3.jpg",
+      "image": "https://placehold.co/600x400/EEE/31343C",
       "timeStamp": "2023-01-03T00:00:00.000Z"
     },
     {
@@ -75,7 +75,7 @@ const mockData = [
       ],
       "title": "Test Daily Fact 4",
       "fact": "Yet another sample daily fact.",
-      "image": "https://example.com/image4.jpg",
+      "image": "https://placehold.co/600x400/EEE/31343C",
       "timeStamp": "2023-01-04T00:00:00.000Z"
     }
   ]
@@ -88,7 +88,8 @@ const Fact = () => {
     }
     return (
         <Container>
-            <div className="max-w-[600px] mx-auto flex items-center gap-10">
+            <div className="max-w-[600px] mx-auto flex items-center justify-between gap-10">
+                <h1 className="text-3xl font-bold">{t('fact.daily_fact')}</h1>
                 <Tooltip title={t('fact.today_new_fact')} placement="bottom">
                     <Button
                         className=""
@@ -98,11 +99,10 @@ const Fact = () => {
                     ></Button>
                 </Tooltip>
             </div>
-            <div className="w-full my-4 border-t border-gray-300"></div>
 
-            <div className="flex flex-col gap-4">
+            <div className="w-full flex flex-col gap-4 px-20">
                 {mockData.map((fact) => (
-                    <FactCard profile={fact} /> ))}
+                    <FactCard fact={fact} key={fact.profileId}/> ))}
             </div>
             <NewIdeaModal opened={opened} onClose={() => setOpened(false)} />
         </Container>

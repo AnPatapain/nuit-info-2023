@@ -11,7 +11,6 @@ const navigationIcon = {
     home: <HiOutlineHome />,
     profile: <HiOutlineUser />,
     fact: <HiOutlineViewGridAdd />,
-    scrum: <HiOutlineTemplate />,
 }
 
 export default navigationIcon
