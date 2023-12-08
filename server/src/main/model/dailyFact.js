@@ -15,7 +15,17 @@ const dailyFactSchema = new mongoose.Schema({
     title: { type: String, required: true },
     fact: { type: String, required: true },
     image: { type: String, required: true }, // Assuming the image is stored as a URL or file path
-    timeStamp: { type: Date, required: true } // Added timestamp field
+    timeStamp: { type: Date, required: true }, // Added timestamp field
+    upVotes: [
+        {
+            profileId: { type: Schema.Types.ObjectId, ref: 'Profile', require: true }
+        }
+    ],
+    downVotes: [
+        {
+            profileId: { type: Schema.Types.ObjectId, ref: 'Profile', require: true }
+        }
+    ]
 });
 
 const DailyFact = mongoose.model('DailyFact', dailyFactSchema);

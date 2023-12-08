@@ -12,6 +12,8 @@ const createOne = async (data) => {
         downvote: 0,
         comments: [],
         timeStamp: Date.now(),
+        upVotes: [],
+        downVotes: []
     })
     await newDailyFact.save()
     return newDailyFact
@@ -61,6 +63,34 @@ const getToday = async (ids) => {
     });
     return todayDailyFacts
 }
+const addUpvote = async (profileId, id) => {
+    const dailyFact = await DailyFact.findById(id)
+    dailyFact.upVotes.push(profileId)
+}
+const removeUpvote = async (profileId, id) => {
+    const dailyFact = await DailyFact.findById(id)
+    dailyFact.upVotes.pull(profileId)
+}
+
+const addDownvote = async (profileId, id) => {
+    const dailyFact = await DailyFact.findById(id)
+    dailyFact.downVotes.push(profileId)
+}
+
+const removeDownvote = async (profileId, id) => {
+    const dailyFact = await DailyFact.findById(id)
+    dailyFact.downVotes.pull(profileId)
+}
+const isUpvote = async (profileId, id) => {
+    const dailyFact = await DailyFact.findById(id);
+    const isUpvote = dailyFact.upVotes.includes(profileId);
+    return isUpvote;
+}
+const isDownvote = async (profileId, id) => {
+    const dailyFact = await DailyFact.findById(id);
+    const isDownvote = dailyFact.downVotes.includes(profileId);
+    return isDownvote;
+}
 let dailyFactDAO = {
     createOne,
     findById,
@@ -69,6 +99,12 @@ let dailyFactDAO = {
     getToday,
     getPage,
     getPageRandom,
+    addUpvote,
+    removeUpvote,
+    addDownvote,
+    removeDownvote,
+    isUpvote,
+    isDownvote,
 }
 
 module.exports = dailyFactDAO
