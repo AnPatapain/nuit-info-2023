@@ -2,6 +2,7 @@ const dailyFactService = require("../service").dailyFactService
 const profileService = require("../service").profileService
 const fs = require('fs')
 
+const { body, validationResult } = require('express-validator');
 
 const createOne = async (req, res, next) => {
     try {
@@ -13,8 +14,8 @@ const createOne = async (req, res, next) => {
 
         // Sanitization middleware
         const sanitizeInput = [
-            sanitizeBody('fact').trim().escape(),
-            sanitizeBody('title').trim().escape(),
+            body('fact').trim().escape(),
+            body('title').trim().escape(),
         ];
 
         // Run validation middleware
@@ -111,6 +112,7 @@ const deleteOne = async (req, res, next) => {
 const changeVote = async (req, res, next) => {
     try {
         const dailyFactData = {
+            userId: req.userId,
             dailyFactId: req.params.dailyFactId,
             vote: Number(req.body.vote)
         }
