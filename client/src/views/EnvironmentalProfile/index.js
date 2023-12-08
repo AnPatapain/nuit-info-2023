@@ -44,26 +44,7 @@ const EnvironmentalProfile = () => {
                 </div>
             }
         </div>
-      {/*{impacts && impacts.length > 0 ?*/}
-      {/*<div>*/}
-      {/*  {impacts.map((impact) => (*/}
-      {/*    <Card>*/}
-      {/*      <div>*/}
-      {/*        {impact.title}*/}
-      {/*      </div>*/}
-      {/*      <div>*/}
-      {/*        {impact.fact}*/}
-      {/*      </div>*/}
-      {/*      <div>*/}
-      {/*        {impact.image}*/}
-      {/*      </div>*/}
-      {/*      <div>*/}
-      {/*        {impact.vote}*/}
-      {/*      </div>*/}
-      {/*    </Card>*/}
-      {/*  ))}*/}
-      {/*</div>*/}
-      {/*: <div>{t('impact.no_impacts_yet')}</div>}*/}
+  
 
 
 
