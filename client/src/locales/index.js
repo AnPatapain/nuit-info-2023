@@ -4,6 +4,7 @@ import en from './lang/en.json'
 import fr from './lang/fr.json'
 import vi from './lang/vi.json'
 import rot13 from './lang/rot13.json'
+import m from './lang/m.json'
 import appConfig from 'configs/app.config'
 
 const resources = {
@@ -18,6 +19,9 @@ const resources = {
     },
     rot13: {
         translation: rot13,
+    },
+    m: {
+        translation: m,
     },
 }
 
@@ -35,6 +39,7 @@ export const dateLocales = {
     fr: () => import('dayjs/locale/fr'),
     vi: () => import('dayjs/locale/vi'),
     rot13: () => import('dayjs/locale/en'),
+    m: () => import('dayjs/locale/en'),
 }
 
 export default i18n
