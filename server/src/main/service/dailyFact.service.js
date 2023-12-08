@@ -69,6 +69,10 @@ const deleteOne = async (data) => {
 }
 
 const changeVote = async (data) => {
+    if (!data.userId) {
+        throw new RessourceNotFoundError("userId missing")
+    }
+    const profile = profileService.getFromUserId(data.userId)
     if (!data.dailyFactId) {
         throw new RessourceNotFoundError("dailyFactId missing")
     }
@@ -76,7 +80,30 @@ const changeVote = async (data) => {
     if (!dailyFact) {
         throw new RessourceNotFoundError("no dailyFact with given id")
     }
-    dailyFact.vote += data.vote
+    const isUpvote = await dailyFactDao.isUpvote(profile._id)
+    const isDownvote = await dailyFactDao.isDownvote(profile._id)
+    if (data.vote > 0) {
+        if (!isUpvote) {
+            if (isDownvote) {
+                dailyFact.vote += 2
+                await dailyFactDao.removeDownvote(profile._id)
+            } else {
+                dailyFact.vote += 1
+            }
+            await dailyFactDao.addUpvote(profile._id)
+        }
+    }
+    if (data.vote < 0) {
+        if (!isDownvote) {
+            if (isUpvote) {
+                dailyFact.vote -= 2
+                await dailyFactDao.removeUpvote(profile._id)
+            } else {
+                dailyFact.vote -= 1
+            }
+            await dailyFactDao.addDownvote(profile._id)
+        }
+    }
     await dailyFact.save()
     return dailyFact
 }
