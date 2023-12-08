@@ -4,7 +4,7 @@
       "profile": "Profil",
       "project": "Projet",
       "language": "Langue",
-      "environmental_profile":"profil environnemental"
+      "environmental_profile":"Profil Environnemental"
   },
   "config": {
       "theme": "Thème",
@@ -57,14 +57,17 @@
     "fact_required":"Facture requise",
     "title_required":"Titre requis",
     "title": "Titre",
-    "fact": "Facture",
+    "fact": "Fait",
     "enter_fact": "Entrer une facture",
     "fact_description": "Description de la facture",
     "share_your_daily_fact": "Partagez votre facture quotidienne",
     "today_new_fact": "Nouvelle facture aujourd'hui",
     "daily_fact": "Facture quotidienne",
     "image": "Image",
-    "no_fact": "Pas de facture"
+    "no_fact": "Pas de facture",
+    "fact_posted": "Fait publié",
+    "true": "Vrai",
+    "false": "Faux"
 },
   "actions": {
       "creating": "Création en cours",
@@ -85,7 +88,29 @@
       "browse": "Parcourir",
       "upload": "Télécharger"
   },
-  "impact":{
-    "environmental_impact":"impact environnemental"
-  }
+  "impact": {
+    "environmental_impact": "Impact Environnemental",
+    "impact_points": "Points d'Impact",
+    "transportation": "Transport",
+    "public_transport_km": "Kilomètres en Transports Publics",
+    "walking_km": "Kilomètres à Pied",
+    "car_km": "Kilomètres en Voiture",
+    "energy": "Énergie",
+    "air_conditioner_hour": "Heures de Climatiseur",
+    "lighting_hour": "Heures d'Éclairage",
+    "digital_habit": "Habitude Numérique",
+    "delete_spam_email_numbers": "Nombre d'E-mails Indésirables Supprimés",
+    "eco_search_engine_hour": "Heures de Moteur de Recherche Éco",
+    "electricity_usage": "Utilisation de l'électricité",
+    "new_impact": "Nouvel Impact",
+    "your_tree_level_depends_on_your_total_environmental_impact_points": "Votre niveau d'arbre dépend de vos points d'impact environnemental total",
+    "tree_level": "Niveau d'Arbre"
+},
+"public_transport_usage_km": "Entrez l'utilisation des transports publics en km",
+    "walking_km": "Entrez la distance à pied en km",
+    "car_usage_km": "Entrez l'utilisation de la voiture en km",
+    "air_conditioner_usage_hour": "Entrez l'utilisation du climatiseur en heures",
+    "lighting_hour_usage": "Entrez l'utilisation de l'éclairage en heures",
+    "numbers_of_deleted_spam_email": "Entrez le nombre d'e-mails indésirables supprimés",
+    "eco_search_engine_hour_usages": "Entrez l'utilisation du moteur de recherche éco en heures"
 }

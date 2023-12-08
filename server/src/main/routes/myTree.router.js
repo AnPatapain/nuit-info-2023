@@ -12,26 +12,18 @@ router.route("/get-tree-level")
     .get([jwtAuth, roleAuth.isUser], async (req, res, next) => {
         const profile = await profileService.getFromUserId(req.userId)
         const impact_points = profile.impact_points
-
         let tree_level = 0
-        if(0 < impact_points <= 20) {
-            tree_level = 20
+        if (impact_points > 0 && impact_points <= 20) {
+            tree_level = 20;
+        } else if (impact_points > 20 && impact_points <= 40) {
+            tree_level = 40;
+        } else if (impact_points > 40 && impact_points <= 60) {
+            tree_level = 60;
+        } else if (impact_points > 60 && impact_points <= 80) {
+            tree_level = 80;
+        } else if (impact_points >= 80) {
+            tree_level = 100;
         }
-        else if(20 < impact_points <= 40) {
-            tree_level = 40
-        }
-
-        else if(40 < impact_points <= 60) {
-            tree_level = 60
-        }
-
-        else if(60 < impact_points <= 80) {
-            tree_level = 80
-        }
-        else if(80 < impact_points <= 100) {
-            tree_level = 100
-        }
-
         res.status(200).json(tree_level)
     })
 

@@ -65,7 +65,10 @@
         "today_new_fact": "Today New Fact",
         "daily_fact": "Daily Fact",
         "image": "Image",
-        "no_fact": "No fact"
+        "no_fact": "No fact",
+        "fact_posted": "Fact Posted",
+        "true": "True",
+        "false": "False"
     },
     "actions": {
         "reset": "Reset",
@@ -88,7 +91,33 @@
         "submit": "Submit",
         "submitting": "Submitting"
     },
-    "impact":{
-        "environmental_impact":"environmental impact"
-    }
+    "impact": {
+        "environmental_impact": "Environmental Impact",
+        "impact_points": "Impact Points",
+        "transportation": "Transportation",
+        "public_transport_km": "Public Transport Kilometers",
+        "walking_km": "Walking Kilometers",
+        "car_km": "Car Kilometers",
+        "energy": "Energy",
+        "air_conditioner_hour": "Air Conditioner Hours",
+        "lighting_hour": "Lighting Hours",
+        "digital_habit": "Digital Habit",
+        "delete_spam_email_numbers": "Delete Spam Email Numbers",
+        "eco_search_engine_hour": "Eco Search Engine Hours",
+        "electricity_usage": "Electricity Usage",
+        "new_impact": "New Impact",
+            "your_tree_level_depends_on_your_total_environmental_impact_points": "Your tree level depends on your total environmental impact points",
+            "tree_level": "Tree Level"
+        
+    },
+    "validation": {
+        "required": "Required"
+    },
+    "public_transport_usage_km": "Enter public transport usage in km",
+    "walking_km": "Enter walking distance in km",
+    "car_usage_km": "Enter car usage in km",
+    "air_conditioner_usage_hour": "Enter air conditioner usage in hours",
+    "lighting_hour_usage": "Enter lighting usage in hours",
+    "numbers_of_deleted_spam_email": "Enter number of deleted spam emails",
+    "eco_search_engine_hour_usages": "Enter eco search engine usage in hours"
 }

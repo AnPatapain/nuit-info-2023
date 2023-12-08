@@ -6,6 +6,9 @@
       "language": "Ynathneq",
       "environmental_profile":"raivebazragny cebsvyr"
   },
+  "validation": {
+    "erqhr": "Erqhr"
+},
   "config": {
       "theme": "Gurzn",
       "theme_config": "Gurzn Pbsgtn",
@@ -47,7 +50,10 @@
     "today_new_fact": "Gurjf Arj Snpgr",
     "daily_fact": "Qnlryr Snpgr",
     "image": "Vznt",
-    "no_fact": "Abg pbz"
+    "no_fact": "Abg pbz",
+    "fact_posted": "Sng Cbfg",
+    "true": "Gehr",
+    "false": "Snyfr"
 },
   "profile": {
       "profile_created": "Cebtenzz Perqvqrq",
@@ -85,7 +91,30 @@
       "browse": "Oevgrer",
       "upload": "Hacber"
   },
-  "impact":{
-    "environmental_impact":"raivebazragny vzcnpg"
-  }
+  "impact": {
+    "environmental_impact": "Rirentragvny Vzcnpg",
+    "impact_points": "Vzcnpg Cbvgf",
+    "transportation": "Genafcbegngvba",
+    "public_transport_km": "Choyvp Genafcbeg Xz",
+    "walking_km": "Jnyxvat Xz",
+    "car_km": "Pne Xz",
+    "energy": "Raretl",
+    "air_conditioner_hour": "Nve Pbaqvgvbaure Ubhef",
+    "lighting_hour": "Yvtugvat Ubhef",
+    "digital_habit": "Qvtvgny Unovg",
+    "delete_spam_email_numbers": "Qryyr Fcnz Rzvy Qrahzref",
+    "eco_search_engine_hour": "Rpb Frnepu Ratvar Ubhef",
+    "new_impact": "Arj Vzcnpg",
+    "electricity_usage": "Ryrpgvba Hfr",
+    "your_tree_level_depends_on_your_total_environmental_impact_points": "Lbhe gerr yriry qrcraqf ba lbhe gbby riretragvny vzcnapl cbvagf",
+    "tree_level": "Gerr Yriry"
+},
+"public_transport_usage_km": "Punelf choyvp genafcbeg hfr va xz",
+"walking_km": "Rairag jnyxvat qvfgnapr va xz",
+"car_usage_km": "Rairag pne hfr va xz",
+"air_conditioner_usage_hour": "Rairag nve pbaqvgvbaure hfr va ubhef",
+"lighting_hour_usage": "Rairag yvtugvat hfr va ubhef",
+"numbers_of_deleted_spam_email": "Rairag ahzore bs qyrgr fnz rzbhf",
+"eco_search_engine_hour_usages": "Rairag rpb frnepu ratvar ubhef hfrf"
+
 }

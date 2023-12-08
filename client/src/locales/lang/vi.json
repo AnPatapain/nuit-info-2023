@@ -64,7 +64,10 @@
     "today_new_fact": "Thông tin mới hôm nay",
     "daily_fact": "Thông tin hàng ngày",
     "image": "Hình ảnh",
-    "no_fact": "Không có thông tin"
+    "no_fact": "Không có thông tin",
+    "true": "Đúng",
+    "false": "Sai"
+
 },
   "actions": {
       "creating": "Đang Tạo",
@@ -85,7 +88,32 @@
       "browse": "Duyệt",
       "upload": "Tải Lên"
   },
-  "impact":{
-    "environmental_impact":"tác động đến môi trường"
-  }
+  "validation": {
+    "required": "Bắt buộc"
+},
+  "impact": {
+    "environmental_impact": "Tác động Môi trường",
+    "impact_points": "Điểm Tác động",
+    "transportation": "Phương tiện Di chuyển",
+    "public_transport_km": "Kilômét Phương tiện Công cộng",
+    "walking_km": "Kilômét Đi bộ",
+    "car_km": "Kilômét Ô tô",
+    "energy": "Năng lượng",
+    "air_conditioner_hour": "Giờ Máy lạnh",
+    "lighting_hour": "Giờ Chiếu sáng",
+    "digital_habit": "Thói quen Kỹ thuật số",
+    "delete_spam_email_numbers": "Số Email Rác Đã Xóa",
+    "eco_search_engine_hour": "Giờ Sử dụng Công cụ Tìm kiếm Eco",
+    "electricity_usage": "Sử dụng điện",
+    "new_impact": "Tác động mới",
+    "your_tree_level_depends_on_your_total_environmental_impact_points": "Cấp độ cây của bạn phụ thuộc vào tổng điểm tác động môi trường của bạn",
+    "tree_level": "Cấp Độ Cây"
+},
+"public_transport_usage_km": "Nhập số km sử dụng giao thông công cộng",
+    "walking_km": "Nhập số km đi bộ",
+    "car_usage_km": "Nhập số km sử dụng ô tô",
+    "air_conditioner_usage_hour": "Nhập số giờ sử dụng máy lạnh",
+    "lighting_hour_usage": "Nhập số giờ sử dụng đèn chiếu sáng",
+    "numbers_of_deleted_spam_email": "Nhập số email rác bị xóa",
+    "eco_search_engine_hour_usages": "Nhập số giờ sử dụng công cụ tìm kiếm eco"
 }
