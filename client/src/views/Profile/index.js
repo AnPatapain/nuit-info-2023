@@ -135,7 +135,7 @@ const Profile = ({ data }) => {
     const onFormSubmit = async (values, setSubmitting) => {
         const formData = new FormData();
         formData.append('name', values.name);
-        formData.append('email', values.email);
+        // formData.append('email', values.email);
 
         try {
             const imageFile = await blobUrlToFile(values.image, "avatar");

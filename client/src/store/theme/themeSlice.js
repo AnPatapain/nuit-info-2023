@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { themeConfig } from 'configs/theme.config'
+import { random } from 'lodash'
 import {
     LAYOUT_TYPE_MODERN,
     LAYOUT_TYPE_CLASSIC,
@@ -23,12 +24,45 @@ const initialNavMode = () => {
 
     return themeConfig.navMode
 }
+const colorList = [
+     'red',
+     'orange',
+     'amber',
+     'yellow',
+     'lime',
+     'green',
+     'emerald',
+     'teal',
+     'cyan',
+     'sky',
+     'blue',
+     'indigo',
+     'violet',
+     'purple',
+     'fuchsia',
+     'pink',
+     'rose',
+]
+
+const colorLevelList = [
+    400,
+    500,
+    600,
+    700,
+    800,
+    900,
+]
+const modes = [MODE_DARK, MODE_LIGHT]
+const getRandomElement = (array) => array[random(array.length - 1)];
 
 const initialState = {
-    themeColor: themeConfig.themeColor,
+    // themeColor: themeConfig.themeColor,
     direction: themeConfig.direction,
-    mode: themeConfig.mode,
-    primaryColorLevel: themeConfig.primaryColorLevel,
+    // mode: themeConfig.mode,
+    themeColor: getRandomElement(colorList),
+    primaryColorLevel: getRandomElement(colorLevelList),
+    mode: getRandomElement(modes),
+    // primaryColorLevel: themeConfig.primaryColorLevel,
     panelExpand: themeConfig.panelExpand,
     navMode: initialNavMode(),
     layout: themeConfig.layout,
