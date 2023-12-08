@@ -1,9 +1,10 @@
 const express = require("express")
 const router = express.Router()
-const profileController = require("../controller/").profileController
 const jwtAuth = require("../middleware/jwt.auth")
 const roleAuth = require("../middleware/role.auth")
 const multerUpload = require("../middleware/multer.upload")
+
+const profileController = require("../controller/").profileController
 
 
 

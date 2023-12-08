@@ -4,7 +4,8 @@ const controller = {
     profileController: require("./profile.controller"),
     userController: require("./user.controller"),
     projectController: require("./project.controller"),
-    notificationController : require("./notification.controller")
+    notificationController: require("./notification.controller"),
+    dailyFactController: require('./dailyFact.controller')
 }
 
 module.exports = controller
