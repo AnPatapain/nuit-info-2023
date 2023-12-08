@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Input,
     Avatar,
@@ -32,10 +32,8 @@ const validationSchema = Yup.object().shape({
         .min(3, 'Too Short!')
         .max(12, 'Too Long!')
         .required('Name Required'),
-    github: Yup.string(),
     email: Yup.string().email('Invalid email').required('Email Required'),
     image: Yup.string(),
-    techSkills: Yup.array().of(Yup.string()).max(10, 'Too many skills! max 10'),
 })
 const RenderInput = ({ field, form, ...props }) => {
     const { name } = field;
@@ -90,11 +88,12 @@ const Profile = ({ data }) => {
     const dispatch = useDispatch();
     const {
         name,
-        github,
         image,
-        techSkills,
         _id,
     } = useSelector((state) => state.profile)
+    useEffect(() => {
+        dispatch(getProfile());
+    }, [dispatch])
     const { email } = useSelector((state) => state.auth.user)
     const [isImageChanged, setIsImageChanged] = useState(false); 
     const isCreateState = !_id;
@@ -134,8 +133,6 @@ const Profile = ({ data }) => {
         const formData = new FormData();
         formData.append('name', values.name);
         formData.append('email', values.email);
-        formData.append('github', values.github);
-        formData.append('techSkills', values.techSkills);
 
         try {
             const imageFile = await blobUrlToFile(values.image, "avatar");
@@ -146,9 +143,6 @@ const Profile = ({ data }) => {
             console.log(error);
         }
 
-        for (var pair of formData.entries()) {
-            console.log(pair[0] + ', ' + pair[1]);
-        }
         try {
             let res;
             if (isCreateState) {
@@ -175,9 +169,7 @@ const Profile = ({ data }) => {
             initialValues={{
                 name: name || '',
                 email: email || '',
-                github: github || '',
                 image: image || '',
-                techSkills: techSkills || [],
             }}
             enableReinitialize
             validationSchema={validationSchema}
@@ -270,35 +262,6 @@ const Profile = ({ data }) => {
                                     prefix={
                                         <HiOutlineMail className="text-xl" />
                                     }
-                                />
-                            </FormRow>
-                            <FormRow
-                                name="github"
-                                label="Github"
-                                {...validatorProps}
-                            >
-                                <Field
-                                    type="text"
-                                    autoComplete="off"
-                                    name="github"
-                                    placeholder="Github"
-                                    component={Input}
-                                    prefix={
-                                        <FaGithub className="text-xl" />
-                                    }
-                                />
-                            </FormRow>
-                            <FormRow
-                                name="techSkills"
-                                label={<div className='flex items-center gap-2'><FaStackOverflow /><span>Tech stack</span></div>}
-                                {...validatorProps}
-                            >
-                                <Field
-                                    type="text"
-                                    autoComplete="off"
-                                    name="techSkills"
-                                    placeholder="Add tech skill"
-                                    component={RenderInput}
                                 />
                             </FormRow>
                             <div className="mt-4 ltr:text-right">

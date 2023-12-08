@@ -5,7 +5,6 @@ const cloudinaryService = require("./cloudinary.service")
 
 
 const profileDao = require("../repository").profileDAO
-const projectDao = require("../repository").projectDAO
 const userDao = require("../repository").userDAO
 
 const { DEFAULT_PROFILE_IMAGE } = process.env
@@ -15,7 +14,7 @@ const create = async (data) => {
         throw new ProfileError("Already have profile")
 
     }
-    if (!data.name || !data.github || !data.techSkills || !data.userId) {
+    if (!data.name || !data.userId) {
         throw new RessourceNotFoundError("Missing details for creating profile");
     }
     if (!data.image) {
@@ -23,7 +22,7 @@ const create = async (data) => {
     }
     const { public_id, url: cloudinaryImgUrl } = await cloudinaryService.uploadImage(data.image)
     data = { ...data, image: cloudinaryImgUrl }
-    return await profileDao.create(data.image, data.name, data.github, data.techSkills, data.userId)
+    return await profileDao.create(data.image, data.name, data.userId)
 }
 
 const getFromUserId = async (userId) => {
@@ -48,9 +47,6 @@ const deleteById = async (profileId) => {
         await cloudinaryService.deleteImage(public_id)
     }
 
-    // delete the projects related to the profile
-    await projectDao.removeProfileFromProjects(profile)
-
     // Delete the profile
     return await profileDao.deleteById(profileId)
 }
@@ -64,12 +60,6 @@ const update = async (data) => {
     }
     if (data.image) {
         profileUpdate.image = data.image;
-    }
-    if (data.github) {
-        profileUpdate.github = data.github;
-    }
-    if (data.techSkills) {
-        profileUpdate.techSkills = data.techSkills;
     }
     if (profileUpdate.image) {
         const { public_id, url: cloudinaryImgUrl } = await cloudinaryService.uploadImage(profileUpdate.image)
@@ -85,7 +75,7 @@ const update = async (data) => {
 const deleteAll = async () => {
     const allProfiles = await profileDao.getAll();
 
-    // Extract image URLs from profiles and projects
+    // Extract image URLs from profiles
     const profileImageUrls = allProfiles.map(profile => profile.image);
 
     // Delete all images from Cloudinary
@@ -95,7 +85,6 @@ const deleteAll = async () => {
     }
     await profileDao.deleteAll()
 
-    await projectDao.deleteAll()
     console.log("all profile deleted");
 }
 const profileService = {
