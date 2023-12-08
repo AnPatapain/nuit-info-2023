@@ -11,7 +11,7 @@
 - Transportation:
 
   - Taking public transportation: +10 points/10km
-  - Walking or biking: +15 points/10km
+  - Walking or biking: +5 points/km
   - Driving a car **alone**: -2 points/10km
 
 - Energy Usage
@@ -109,7 +109,30 @@ Do the 2nd action onwards ===> Get the full score of the highest action + 80% of
 
 There are 3 main points in a ranking
 
-- Daily Activities
+- Daily Activities                ----> x points
 
-- Post Up/Down vote
+- Post Up/Down vote               -----> y up vote (negative if downvote > upvote)
 
+- social activities organised    ------> z people participate
+
+total points = x/100 + y/50 + z
+
+**Eco Observer**    [total point > 1] \
+Individuals who are starting to become aware of environmental issues.
+Minimal engagement in sustainable practices.
+
+**Green Participant**     [total point > 30]\
+Engaging in occasional eco-friendly actions.
+Beginning to adopt some sustainable habits but with inconsistency.
+
+**Sustainable Practitioner** [total point > 100] \
+Regularly incorporating eco-friendly practices into daily life.
+Consistently making efforts to reduce environmental impact.
+
+**Environment Advocate**  [total point > 200]\
+Actively promoting and engaging in various sustainable actions.
+Contributing significantly to environmental protection efforts.
+
+**Sustainability Leader**   [total point > 500]\
+Leading by example in environmental protection.
+Inspiring others and making a substantial positive impact on the environment through consistent and influential actions.
