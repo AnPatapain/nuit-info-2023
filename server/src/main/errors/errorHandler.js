@@ -6,11 +6,12 @@ const UserDataError = require("./UserError").UserDataError
 const UserSessionError = require("./UserError").UserSessionError
 const ProfileError = require("./ProfileError")
 const ResourceNotFoundError = require("./RessourceNotFoundError")
+const BadCredentialsError = require("./BadCredentialsError");
+const DailyFactError = require("./DailyFactError")
 const { JsonWebTokenError } = require("jsonwebtoken");
 const { MulterError } = require("multer");
-const BadCredentialsError = require("./BadCredentialsError");
 
-// TODO: change to { error: "DuplicateEmailError", message: err.message }
+
 let handleDuplicateEmailError = (err, res) => {
     // res.status(409).json({ "DuplicateEmailError": err.message });
     res.status(409).json({ message: err.message });
@@ -53,7 +54,9 @@ let handleMulterError = (err, res) => {
     res.status(400).json({ message: err.message });
 }
 
-
+let handleDailyFactError = (err, res) => {
+    res.status(400).json({ message: err.message })
+}
 module.exports = (err, req, res, next) => {
 
     if (err instanceof DuplicateEmailError) handleDuplicateEmailError(err, res)
@@ -77,6 +80,8 @@ module.exports = (err, req, res, next) => {
     else if (err instanceof BadCredentialsError) handleBadCredentialsError(err, res)
 
     else if (err instanceof JsonWebTokenError) handleJwtError(err, res)
+
+    else if (err instanceof DailyFactError) handleDailyFactError(err, res)
 
     else {
         res.status(500).json({ message: "Internal Server Error" + err });

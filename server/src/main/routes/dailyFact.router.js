@@ -20,5 +20,5 @@ router.route("/dailyFact/all")
 router.route("/dailyFact/:dailyFactId")
     .get([jwtAuth, roleAuth.isUser], dailyFactController.getOne)
     .delete([jwtAuth, roleAuth.isUser], dailyFactController.deleteOne)
-
+    .post([jwtAuth, roleAuth.isUser], dailyFactController.changeVote)
 module.exports = router

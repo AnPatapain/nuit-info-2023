@@ -43,7 +43,6 @@ const getToday = async (ids) => {
     });
     return todayDailyFacts
 }
-
 let dailyFactDAO = {
     createOne,
     findById,

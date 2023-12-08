@@ -4,6 +4,7 @@ const { Schema } = mongoose
 const profileSchema = new mongoose.Schema({
     userId: { type: Schema.Types.ObjectId, ref: 'User', require: true },
     image: { type: String, required: true },
+    name: { type: String, required: true },
     dailyFacts: [
         { type: mongoose.Schema.ObjectId, ref: 'DailyFact', required: true }
     ],

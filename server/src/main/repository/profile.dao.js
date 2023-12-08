@@ -6,9 +6,9 @@ const DailyFact = db.dailyFact
 const create = async (image, name, userId) => {
 
     const newProfile = new Profile({
-        image,
-        name,
-        userId,
+        image: image,
+        name: name,
+        userId: userId,
         dailyFacts: [],
         comments: [],
         notificationSend: [],

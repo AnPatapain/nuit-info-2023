@@ -1,7 +1,6 @@
 const dailyFactService = require("../service").dailyFactService
 const profileService = require("../service").profileService
 const fs = require('fs')
-const { dailyFactDAO } = require("../repository")
 
 
 const createOne = async (req, res, next) => {
@@ -73,14 +72,25 @@ const getAllCurrent = async (req, res, next) => {
 }
 const deleteOne = async (req, res, next) => {
     try {
-        const profile = await profileService.getFromUserId(req.userId)
-        const dailyFactId = await req.params.dailyFactId
-        const dailyFact = await dailyFactService.getFromFactId(dailyFactId)
-        if (!dailyFact.profileId._id.equals(profile._id)) {
-            return res.status(403).json({ "error": "you are not owner of this fact" })
+        const dailyFactData = {
+            userId: req.userId,
+            dailyFactId: req.params.dailyFactId
         }
-        const result = await dailyFactService.deleteOne(dailyFactId)
+        const result = await dailyFactService.deleteOne(dailyFactData)
         res.status(200).send({ result })
+    } catch (err) {
+        console.log(err)
+        next(err)
+    }
+}
+const changeVote = async (req, res, next) => {
+    try {
+        const dailyFactData = {
+            dailyFactId: req.params.dailyFactId,
+            vote: Number(req.body.vote)
+        }
+        const dailyFact = await dailyFactService.changeVote(dailyFactData)
+        res.status(200).send({ dailyFact })
     } catch (err) {
         console.log(err)
         next(err)
@@ -93,6 +103,7 @@ const dailyFactController = {
     getAllCurrent,
     getToday,
     deleteOne,
+    changeVote,
 }
 
 module.exports = dailyFactController

@@ -5,7 +5,6 @@ const cloudinaryService = require("./cloudinary.service")
 
 
 const profileDao = require("../repository").profileDAO
-const projectDao = require("../repository").projectDAO
 const userDao = require("../repository").userDAO
 
 const { DEFAULT_PROFILE_IMAGE } = process.env
@@ -48,7 +47,6 @@ const deleteById = async (profileId) => {
         await cloudinaryService.deleteImage(public_id)
     }
 
-    // delete the projects related to the profile
     // Delete the profile
     return await profileDao.deleteById(profileId)
 }
@@ -77,7 +75,7 @@ const update = async (data) => {
 const deleteAll = async () => {
     const allProfiles = await profileDao.getAll();
 
-    // Extract image URLs from profiles and projects
+    // Extract image URLs from profiles
     const profileImageUrls = allProfiles.map(profile => profile.image);
 
     // Delete all images from Cloudinary
@@ -87,7 +85,6 @@ const deleteAll = async () => {
     }
     await profileDao.deleteAll()
 
-    await projectDao.deleteAll()
     console.log("all profile deleted");
 }
 const profileService = {

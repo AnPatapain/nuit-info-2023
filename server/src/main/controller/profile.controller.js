@@ -4,7 +4,7 @@ const fs = require('fs');
 const createOne = async (req, res, next) => {
     try {
         let profileInfo = {
-            name: req.body.name || 'NoName',
+            name: req.body.name || "NoName",
             image: req?.file?.path ? req.file.path : null,
             userId: req.userId
         }
