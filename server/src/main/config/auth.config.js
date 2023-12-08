@@ -1,4 +1,4 @@
 module.exports = {
-    secret: "nuitinfo_jwt",
+    secret: "qwertyubuvhgbtyubnwdwdaskskskks@#@12412",
     session_secret: "nuitinfo_express"
 };

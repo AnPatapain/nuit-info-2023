@@ -1,8 +1,39 @@
 const profileService = require("../service").profileService
 const fs = require('fs');
 
+const { body, validationResult } = require('express-validator');
+const { sanitizeBody } = require('express-validator');
+
+
 const createOne = async (req, res, next) => {
     try {
+        // Validation middleware
+        const validate = [
+            body('name').optional().isString().withMessage('Name must be a string')
+                .isLength({ max: 12 }).withMessage('Name must be at most 12 characters long'),
+            body('image').optional().isString().withMessage('Image path must be a string'),
+            body('userId').exists().withMessage('User ID is required'),
+        ];
+
+        // Sanitization middleware
+        const sanitizeInput = [
+            sanitizeBody('name').trim().escape(),
+            sanitizeBody('image').trim().escape(),
+            sanitizeBody('userId').trim().escape(),
+        ];
+
+        // Run validation middleware
+        await Promise.all(validate.map(validation => validation.run(req)));
+
+        // Check for validation errors
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        // Run sanitization middleware
+        await Promise.all(sanitizeInput.map(sanitizer => sanitizer.run(req)));
+
         let profileInfo = {
             name: req.body.name || "NoName",
             image: req?.file?.path ? req.file.path : null,

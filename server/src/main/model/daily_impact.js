@@ -15,6 +15,7 @@ const dailyImpactSchema = new mongoose.Schema({
         delete_spam_email_numbers: Number,
         eco_search_engine_hour: Number,
     },
+    impact_points: { type: Number, default: 0 },
     timeStamp: { type: Date, required: true }
 });
 

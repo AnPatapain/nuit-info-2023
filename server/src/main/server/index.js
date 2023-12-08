@@ -6,13 +6,14 @@ const cors = require("cors")
 const session = require("express-session")
 const config = require("../config")
 const passport = require("../controller/passport.controller")
-
+const mongoSanitize = require('express-mongo-sanitize');
 module.exports = function () {
     let app = express()
 
     let configApp = (config) => {
         app.set("trust proxy", true);
         app.use(cors(config.corsConfig.corsOptions))
+        app.use(mongoSanitize())
         app.use(bodyParser.json())
         app.use(passport.initialize())
         app.use(session({

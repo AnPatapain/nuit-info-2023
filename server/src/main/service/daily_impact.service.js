@@ -1,5 +1,6 @@
 const dailyImpactDAO = require("../repository").daily_impactDAO
 const profileService = require("../service/profile.service")
+const DailyFactError = require("../errors/DailyFactError");
 
 let getAll = async () => {
     return await dailyImpactDAO.getAll();
@@ -16,12 +17,17 @@ const getToday = async (userId) => {
 }
 
 let createOne = async (dailyImpactData, userId) => {
+    // const todayDailyFact = await getToday(data.profileId)
+    // if (todayDailyFact.length > 0) {
+    //     throw new DailyFactError("you already create a FACTOS in the previous 24h")
+    // }
+
     const profile = await profileService.getFromUserId(userId)
     const dailyImpact = await dailyImpactDAO.createOne(dailyImpactData)
 
     profile.daily_impacts.push(dailyImpact._id)
     profile.impact_points = profile.impact_points + calculateImpactScore(dailyImpact)
-
+    dailyImpact.impact_points = calculateImpactScore(dailyImpact)
     dailyImpact.profileId = profile._id
 
     await profile.save()
