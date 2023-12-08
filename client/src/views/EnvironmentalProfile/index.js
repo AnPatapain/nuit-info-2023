@@ -53,21 +53,19 @@ const EnvironmentalProfile = () => {
       </Tooltip>
       <div className='mt-10'>
         <Card 
-          className="w-[200px] h-[300px] mx-auto"
-          bodyClass="w-[200px] h-[300px] mx-auto flex flex-col">
+          className="w-[700px] h-[500px] mx-auto"
+          bodyClass="w-full h-[300px] mx-auto flex gap-4">
             <div className="text-center text-lg flex flex-col">
               <span>{t("impact.your_tree_level_depends_on_your_total_environmental_impact_points")}</span>
                 {t('impact.tree_level')} {imageIndex}
             </div>  
-          <img src={`/img/plant/plant${1}.png`} alt="tree" 
-            style={{
-              width: '100px',
-              height: '300px',
-              // objectFit: 'contain',
-            }}
-          />
-          
-          
+            <img src={`/img/plant/plant${1}.png`} alt="tree" 
+              style={{
+                width: '100px',
+                height: '400px',
+                transform: 'translateY(-40%)',
+              }}
+            />
         </Card>
         </div>
         <div className="w-full flex flex-col gap-4 px-20">
