@@ -12,8 +12,8 @@ router.route("/daily-impacts")
 router.route("/daily-impacts/today")
     .get([jwtAuth, roleAuth.isUser], dailyImpactController.getToday)
 
-router.route("/daily-impacts/:dailyImpactId")
-    .get([jwtAuth, roleAuth.isUser], dailyImpactController.getOne)
+router.route("/daily-impacts/me")
+    .get([jwtAuth, roleAuth.isUser], dailyImpactController.getMe)
 
 
 module.exports = router;

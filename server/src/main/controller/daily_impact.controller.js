@@ -1,4 +1,5 @@
 const dailyImpactService = require("../service").daily_impactService
+const profileService = require("../service/profile.service")
 
 const getAll = async (req, res, next) => {
     try {
@@ -9,11 +10,15 @@ const getAll = async (req, res, next) => {
     }
 };
 
-const getOne = async (req, res, next) => {
+const getMe = async (req, res, next) => {
     try {
-        const dailyImpactId = req.params.dailyImpactId;
-        const dailyImpact = await dailyImpactService.getOne(dailyImpactId);
-        return res.status(200).json(dailyImpact);
+        const profile = await profileService.getFromUserId(req.userId)
+
+        const dailyImpacts = await Promise.all(profile.daily_impacts.map(async (impactId) => {
+            return await dailyImpactService.getOne(impactId);
+        }));
+
+        return res.status(200).json(dailyImpacts);
     } catch (err) {
         next(err);
     }
@@ -29,7 +34,6 @@ const createOne = async (req, res, next) => {
             digital_habit
         };
 
-        console.log(dailyImpactData)
         const createdDailyImpact = await dailyImpactService.createOne(dailyImpactData, req.userId);
 
         res.status(201).json(createdDailyImpact);
@@ -49,7 +53,7 @@ const getToday = async (req, res, next) => {
 
 module.exports = {
     getAll,
-    getOne,
+    getMe,
     createOne,
     getToday
 };

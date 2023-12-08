@@ -72,38 +72,75 @@ const changeVote = async (data) => {
     if (!data.userId) {
         throw new RessourceNotFoundError("userId missing")
     }
-    const profile = profileService.getFromUserId(data.userId)
+    const profile = await profileService.getFromUserId(data.userId)
     if (!data.dailyFactId) {
         throw new RessourceNotFoundError("dailyFactId missing")
     }
+    if (!profile) {
+        throw new RessourceNotFoundError("no profile with id")
+    }
+    const dailyFactId = data.dailyFactId
     const dailyFact = await dailyFactDao.findById(data.dailyFactId)
     if (!dailyFact) {
         throw new RessourceNotFoundError("no dailyFact with given id")
     }
-    const isUpvote = await dailyFactDao.isUpvote(profile._id)
-    const isDownvote = await dailyFactDao.isDownvote(profile._id)
+    const isUpvote = await dailyFactDao.isUpvote(profile._id, dailyFactId)
+    const isDownvote = await dailyFactDao.isDownvote(profile._id, dailyFactId)
+    // if (data.vote > 0) {
+    //     if (!isUpvote) {
+    //         if (isDownvote) {
+    //             dailyFact.vote += 2
+    //             await dailyFactDao.removeDownvote(profile._id, dailyFactId)
+    //         } else {
+    //             dailyFact.vote += 1
+    //         }
+    //         await dailyFactDao.addUpvote(profile._id, dailyFactId)
+    //     }
+    // }
+    // if (data.vote < 0) {
+    //     if (!isDownvote) {
+    //         if (isUpvote) {
+    //             dailyFact.vote -= 2
+    //             await dailyFactDao.removeUpvote(profile._id, dailyFactId)
+    //         } else {
+    //             dailyFact.vote -= 1
+    //         }
+    //         await dailyFactDao.addDownvote(profile._id, dailyFactId)
+    //     }
+    // }
     if (data.vote > 0) {
+        const isUpvote = await dailyFactDao.isUpvote(profile._id, dailyFactId);
+
         if (!isUpvote) {
+            const isDownvote = await dailyFactDao.isDownvote(profile._id, dailyFactId);
+
             if (isDownvote) {
-                dailyFact.vote += 2
-                await dailyFactDao.removeDownvote(profile._id)
+                dailyFact.vote += 2;
+                await dailyFactDao.removeDownvote(profile._id, dailyFactId);
             } else {
-                dailyFact.vote += 1
+                dailyFact.vote += 1;
             }
-            await dailyFactDao.addUpvote(profile._id)
+
+            await dailyFactDao.addUpvote(profile._id, dailyFactId);
         }
     }
     if (data.vote < 0) {
+        const isDownvote = await dailyFactDao.isDownvote(profile._id, dailyFactId);
+
         if (!isDownvote) {
+            const isUpvote = await dailyFactDao.isUpvote(profile._id, dailyFactId);
+
             if (isUpvote) {
-                dailyFact.vote -= 2
-                await dailyFactDao.removeUpvote(profile._id)
+                dailyFact.vote -= 2;
+                await dailyFactDao.removeUpvote(profile._id, dailyFactId);
             } else {
-                dailyFact.vote -= 1
+                dailyFact.vote -= 1;
             }
-            await dailyFactDao.addDownvote(profile._id)
+
+            await dailyFactDao.addDownvote(profile._id, dailyFactId);
         }
     }
+    console.log("aftertreat", dailyFact.vote, dailyFact.upVotes, dailyFact.downVotes);
     await dailyFact.save()
     return dailyFact
 }

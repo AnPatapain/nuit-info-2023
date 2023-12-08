@@ -66,29 +66,42 @@ const getToday = async (ids) => {
 const addUpvote = async (profileId, id) => {
     const dailyFact = await DailyFact.findById(id)
     dailyFact.upVotes.push(profileId)
+    await dailyFact.save()
 }
 const removeUpvote = async (profileId, id) => {
     const dailyFact = await DailyFact.findById(id)
-    dailyFact.upVotes.pull(profileId)
+    await dailyFact.upVotes.pull(profileId)
+    await dailyFact.save()
 }
 
 const addDownvote = async (profileId, id) => {
     const dailyFact = await DailyFact.findById(id)
     dailyFact.downVotes.push(profileId)
+    await dailyFact.save()
 }
 
 const removeDownvote = async (profileId, id) => {
     const dailyFact = await DailyFact.findById(id)
-    dailyFact.downVotes.pull(profileId)
+    await dailyFact.downVotes.pull(profileId)
+    await dailyFact.save()
 }
 const isUpvote = async (profileId, id) => {
     const dailyFact = await DailyFact.findById(id);
-    const isUpvote = dailyFact.upVotes.includes(profileId);
+    if (!dailyFact) {
+        console.log("not found dailyFact");
+        throw new Error("inside check")
+    }
+
+    const isUpvote = dailyFact.upVotes.some(upVote => upVote._id === profileId);
     return isUpvote;
 }
 const isDownvote = async (profileId, id) => {
     const dailyFact = await DailyFact.findById(id);
-    const isDownvote = dailyFact.downVotes.includes(profileId);
+    if (!dailyFact) {
+        console.log("not found dailyFact");
+        throw new Error("inside check")
+    }
+    const isDownvote = dailyFact.downVotes.some(downVote => downVote._id === profileId);
     return isDownvote;
 }
 let dailyFactDAO = {
