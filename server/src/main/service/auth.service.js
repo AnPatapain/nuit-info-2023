@@ -48,10 +48,10 @@ let signIn = async (data) => {
 
     const role = await userDao.findUserRole(existingUser)
     const token = jwt.sign({ id: existingUser.id },
-        JWT_SECRET,
+        JWT_SECRET + data.email,
         {
             algorithm: "HS256",
-            expiresIn: 86400
+            expiresIn: 4 * 60 * 60
         });
     if (data.session) {
         data.session.token = token
