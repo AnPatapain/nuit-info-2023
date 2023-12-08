@@ -39,7 +39,7 @@ let handleResourceNotFoundError = (err, res) => {
 }
 
 let handleJwtError = (err, res) => {
-    res.status(403).json({ message: err });
+    res.status(401).json({ message: err });
 }
 
 let handleBadCredentialsError = (err, res) => {

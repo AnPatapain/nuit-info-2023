@@ -7,9 +7,11 @@ import { RiCelsiusFill } from "react-icons/ri";
 function FactCard({ fact }) {
     const upvoteHandler = async () => {
         await apiChangeVote({ dailyFactId: fact._id, vote : 1 })
+        window.location.reload()
     }
     const downvoteHandler = async () => {
         await apiChangeVote({ dailyFactId: fact._id, vote : -1})
+        window.location.reload()
     }
     return (
       <Card 

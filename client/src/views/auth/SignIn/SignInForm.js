@@ -16,7 +16,6 @@ import useAuth from 'utils/hooks/useAuth'
 const validationSchema = Yup.object().shape({
     email: Yup.string().email().required('Please enter your email'),
     password: Yup.string().required('Please enter your password'),
-    rememberMe: Yup.bool(),
 })
 
 const SignInForm = (props) => {
@@ -54,9 +53,8 @@ const SignInForm = (props) => {
             <Formik
                 // Remove this initial value
                 initialValues={{
-                    email: 'test@testmail.com',
-                    password: '123Qwe',
-                    rememberMe: true,
+                    email: '',
+                    password: '',
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting }) => {
@@ -95,7 +93,7 @@ const SignInForm = (props) => {
                                     component={PasswordInput}
                                 />
                             </FormItem>
-                            <div className="flex justify-between mb-6">
+                            {/* <div className="flex justify-between mb-6">
                                 <Field
                                     className="mb-0"
                                     name="rememberMe"
@@ -105,7 +103,7 @@ const SignInForm = (props) => {
                                 <ActionLink to={forgotPasswordUrl}>
                                     Forgot Password?
                                 </ActionLink>
-                            </div>
+                            </div> */}
                             <Button
                                 block
                                 loading={isSubmitting}

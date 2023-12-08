@@ -24,7 +24,6 @@ const createOne = async (req, res, next) => {
         // Check for validation errors
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            console.log(errors.array());
             return res.status(400).json({ errors: errors.array() });
         }
 
@@ -41,18 +40,15 @@ const createOne = async (req, res, next) => {
         const dailyFact = await dailyFactService.createOne(dailyFactData)
         res.status(201).send({ dailyFact })
     } catch (err) {
-        console.log(err);
         next(err)
     } finally {
         if (req.file) {
             try {
                 fs.unlink(req.file.path, (err) => {
                     if (err) {
-                        console.error("Error deleting file from uploads folder:", err);
                     }
                 });
             } catch (err) {
-                console.error("Error in finally block:", err);
             }
         }
     }
@@ -71,7 +67,6 @@ const getAll = async (req, res, next) => {
         let dailyFacts = await dailyFactService.getAll()
         res.status(200).send(dailyFacts)
     } catch (err) {
-        console.log(err);
         next(err)
     }
 }
@@ -81,7 +76,6 @@ const getToday = async (req, res, next) => {
         const dailyFacts = await dailyFactService.getToday(profile._id)
         res.status(200).send(dailyFacts)
     } catch (err) {
-        console.log(err)
         next(err)
     }
 }
@@ -92,7 +86,6 @@ const getAllCurrent = async (req, res, next) => {
         const dailyFacts = await dailyFactService.getAllCurrent(profile._id)
         res.status(200).send({ dailyFacts })
     } catch (err) {
-        console.log(err)
         next(err)
     }
 }
@@ -105,7 +98,6 @@ const deleteOne = async (req, res, next) => {
         const result = await dailyFactService.deleteOne(dailyFactData)
         res.status(200).send({ result })
     } catch (err) {
-        console.log(err)
         next(err)
     }
 }
@@ -119,7 +111,6 @@ const changeVote = async (req, res, next) => {
         const dailyFact = await dailyFactService.changeVote(dailyFactData)
         res.status(200).send({ dailyFact })
     } catch (err) {
-        console.log(err)
         next(err)
     }
 }
