@@ -3,7 +3,8 @@
       "home": "Trang Chủ",
       "profile": "Hồ Sơ",
       "project": "Dự Án",
-      "language": "Ngôn Ngữ"
+      "language": "Ngôn Ngữ",
+      "environmental_profile":"hồ sơ môi trường"
   },
   "config": {
       "theme": "Chủ Đề",
@@ -50,6 +51,21 @@
       "please_upload_an_image_file": "Vui lòng tải lên tệp .jpeg hoặc .png",
       "upload_image_cannot_more_than": "Ảnh tải lên không thể lớn hơn {{maxFileSize}} kb!"
   },
+  "fact": {
+    "too_short": "Quá ngắn",
+    "too_long": "Quá dài",
+    "fact_required": "Yêu cầu thông tin",
+    "title_required": "Yêu cầu tiêu đề",
+    "title": "Tiêu đề",
+    "fact": "Thông tin",
+    "enter_fact": "Nhập thông tin",
+    "fact_description": "Mô tả thông tin",
+    "share_your_daily_fact": "Chia sẻ thông tin hàng ngày của bạn",
+    "today_new_fact": "Thông tin mới hôm nay",
+    "daily_fact": "Thông tin hàng ngày",
+    "image": "Hình ảnh",
+    "no_fact": "Không có thông tin"
+},
   "actions": {
       "creating": "Đang Tạo",
       "updating": "Đang Cập Nhật",
@@ -68,5 +84,8 @@
       "view": "Xem",
       "browse": "Duyệt",
       "upload": "Tải Lên"
+  },
+  "impact":{
+    "environmental_impact":"tác động đến môi trường"
   }
 }

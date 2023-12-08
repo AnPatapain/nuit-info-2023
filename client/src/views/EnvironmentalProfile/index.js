@@ -5,13 +5,16 @@ import { apiGetDailyImpacts } from 'services/DailyImpactService'
 import { IoIosAddCircleOutline } from 'react-icons/io'
 import { t } from 'i18next'
 import EnvironmentalProfileForm from './components/EnvironmentalProfileForm'
+import FactCard from "../Fact/components/FactCard";
+import DailyImpactCard from "./components/DailyImpactCard";
 const EnvironmentalProfile = () => {
   const [impacts, setImpacts] = useState([])
   const [opened, setOpened] = useState(false);
 
   useEffect(() => {
     apiGetDailyImpacts().then((res) => {
-      setImpacts(res.data)
+        console.log(res.data)
+        setImpacts(res.data)
     })
   }, [])
 
@@ -25,7 +28,6 @@ const EnvironmentalProfile = () => {
         title={t('impact.new_impact')}
         placement='right'
       >
-
         <Button
           className=""
           variant="solid"
@@ -33,36 +35,38 @@ const EnvironmentalProfile = () => {
           onClick={onClickAddNewFact}
         ></Button>
       </Tooltip>
-      {/* {impacts && impacts.length > 0 ? 
-      <div>
-        {impacts.map((impact) => (
-          <Card>
-            <div>
-              {impact.title}
-            </div>
-            <div>
-              {impact.fact}
-            </div>
-            <div>
-              {impact.image}
-            </div>
-            <div>
-              {impact.vote}
-            </div>
-          </Card>
-        ))}
-      </div>
-      : <div>{t('impact.no_impacts_yet')}</div>} */}
-      {/* <Card>
 
-        <div>
-
-
+        <div className="w-full flex flex-col gap-4 px-20">
+            {impacts && impacts.length > 0 ? impacts.map((impact) => (
+                    <DailyImpactCard impact={impact} key={impact._id}/> )) :
+                <div className="text-center text-lg text-gray-400 dark:text-gray-600">
+                    {t('fact.no_fact')}
+                </div>
+            }
         </div>
-        <div>
-          Score: 0
-        </div>
-      </Card> */}
+      {/*{impacts && impacts.length > 0 ?*/}
+      {/*<div>*/}
+      {/*  {impacts.map((impact) => (*/}
+      {/*    <Card>*/}
+      {/*      <div>*/}
+      {/*        {impact.title}*/}
+      {/*      </div>*/}
+      {/*      <div>*/}
+      {/*        {impact.fact}*/}
+      {/*      </div>*/}
+      {/*      <div>*/}
+      {/*        {impact.image}*/}
+      {/*      </div>*/}
+      {/*      <div>*/}
+      {/*        {impact.vote}*/}
+      {/*      </div>*/}
+      {/*    </Card>*/}
+      {/*  ))}*/}
+      {/*</div>*/}
+      {/*: <div>{t('impact.no_impacts_yet')}</div>}*/}
+
+
+
       <EnvironmentalProfileForm opened={opened} onClose={() => setOpened(false)} />
     </Container>
   )
