@@ -1,7 +1,8 @@
 import { Container } from 'components/shared'
 import { Button, Tooltip } from 'components/ui'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { IoIosAddCircleOutline } from 'react-icons/io'
+import { apiGetDailyFacts } from 'services/FactService'
 import NewIdeaModal from './components/NewDailyFactDialog'
 import FactCard from './components/FactCard'
 import { t } from 'i18next'
@@ -83,9 +84,17 @@ const mockData = [
 
 const Fact = () => {
     const [opened, setOpened] = useState(false);
+    const [facts, setFacts] = useState([]);
+    useEffect(() => {
+      const getFacts = async () => {
+        const response = await apiGetDailyFacts();
+        setFacts(response.data);
+      }
+      getFacts();
+    }, []);
     const onClickAddNewFact = () => {
-        setOpened(true)
-    }
+      setOpened(true)
+  }
     return (
         <Container>
             <div className="max-w-[600px] mx-auto flex items-center justify-between gap-10">
@@ -101,8 +110,12 @@ const Fact = () => {
             </div>
 
             <div className="w-full flex flex-col gap-4 px-20">
-                {mockData.map((fact) => (
-                    <FactCard fact={fact} key={fact.profileId}/> ))}
+                {facts && facts.length > 0 ? mockData.map((fact) => (
+                    <FactCard fact={fact} key={fact.profileId}/> )) : 
+                    <div className="text-center text-lg text-gray-400 dark:text-gray-600">
+                        {t('fact.no_fact')}
+                    </div>
+                    }
             </div>
             <NewIdeaModal opened={opened} onClose={() => setOpened(false)} />
         </Container>

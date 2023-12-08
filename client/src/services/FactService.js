@@ -1,8 +1,8 @@
 import ApiService from './ApiService'
 
-export async function apiGetDailyDailyFacts(data) {
+export async function apiGetDailyFacts(data) {
     return ApiService.fetchData({
-        url: '/daily-facts',
+        url: '/dailyFact/all',
         method: 'get',
         data,
     })
