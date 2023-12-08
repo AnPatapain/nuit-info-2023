@@ -84,8 +84,6 @@ const deleteAll = async () => {
         await cloudinaryService.deleteImage(publicId);
     }
     await profileDao.deleteAll()
-
-    console.log("all profile deleted");
 }
 const profileService = {
     create,

@@ -6,7 +6,6 @@ export const getProfile = createAsyncThunk(
     'profile/data/getProfile',
     async () => {
         const response = await apiGetProfileByUserId()
-        console.log(response.data);
         return response.data
     }
 )

@@ -10,14 +10,11 @@ passport.use(new GoogleStrategy({
 },
     async (accessToken, refreshToken, profile, done) => {
         try {
-            // console.log(profile)
             let passport_cb = null
             const googleEmail = profile.emails[0].value
-            console.log(googleEmail)
             const existingUser = await userDao.findByEmail(googleEmail)
             if (existingUser) {
                 if (existingUser.login === 'local') {
-                    console.log("existing email")
                     const emailLocal = {
                         type: "existingEmailNotion",
                         content: { message: "This email is already registered" }
@@ -69,7 +66,6 @@ passport.use(new GoogleStrategy({
                 type: "error",
                 content: err
             }
-            console.log(error)
             return done(null, error)
         }
     }),

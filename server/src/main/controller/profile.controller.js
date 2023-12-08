@@ -10,13 +10,11 @@ const createOne = async (req, res, next) => {
         const validate = [
             body('name').optional().isString().withMessage('Name must be a string')
                 .isLength({ max: 12 }).withMessage('Name must be at most 12 characters long'),
-            body('image').optional().isString().withMessage('Image path must be a string'),
         ];
 
         // Sanitization middleware
         const sanitizeInput = [
             body('name').trim().escape(),
-            body('image').trim().escape(),
         ];
 
         // Run validation middleware
@@ -91,8 +89,6 @@ const deleteOne = async (req, res, next) => {
     try {
         const profileId = req.params.profileId
         const profile = await profileService.getFromProfileId(profileId)
-        console.log(profile.userId._id)
-        console.log(req.userId)
         if (!profile.userId._id.equals(req.userId)) {
             return res.status(403).json({ "error": "You are not owner of this profile" })
         }

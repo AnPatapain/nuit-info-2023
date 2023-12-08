@@ -22,8 +22,6 @@ function useAuth() {
         try {
             const resp = await apiSignIn(values)
             
-            
-            console.log(resp);
             if (resp.data) {
                 const { token } = resp.data
                 dispatch(onSignInSuccess(token))
@@ -44,7 +42,6 @@ function useAuth() {
                 try {
                     const res = await apiGetProfileByUserId()
                     if (res.data) {
-                        console.log(res.data.profile);
                         dispatch(setProfile(res.data.profile))
                     }    
                 } catch (error) {

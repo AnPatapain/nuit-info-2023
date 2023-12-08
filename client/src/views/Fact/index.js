@@ -88,7 +88,6 @@ const Fact = () => {
     useEffect(() => {
       const getFacts = async () => {
         const response = await apiGetDailyFacts();
-        console.log(response.data);
         setFacts(response.data);
       }
       getFacts();

@@ -15,6 +15,7 @@ const languageList = [
     { label: 'Français', value: 'fr', flag: 'fr' },
     { label: 'Tiếng Việt', value: 'vi', flag: 'vi' },
     { label: 'ROT13', value: 'rot13', flag: 'rot13' },
+    { label: 'Morse', value: 'm', flag: 'm' },
 ]
 
 export const LanguageSelector = ({ className }) => {
