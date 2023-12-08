@@ -110,6 +110,8 @@ jobs:
           docker cp frontend_container:/workspace/tailwind.config.js output/client
           docker cp frontend_container:/workspace/package.json output/client
           docker cp frontend_container:/workspace/package-lock.json output/client
+          
+          cp ./README.md output
 
       - name: Pushes to another repository
         uses: cpina/github-action-push-to-another-repository@main
