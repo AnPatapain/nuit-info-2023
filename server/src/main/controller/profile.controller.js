@@ -10,13 +10,11 @@ const createOne = async (req, res, next) => {
         const validate = [
             body('name').optional().isString().withMessage('Name must be a string')
                 .isLength({ max: 12 }).withMessage('Name must be at most 12 characters long'),
-            body('image').optional().isString().withMessage('Image path must be a string'),
         ];
 
         // Sanitization middleware
         const sanitizeInput = [
             body('name').trim().escape(),
-            body('image').trim().escape(),
         ];
 
         // Run validation middleware

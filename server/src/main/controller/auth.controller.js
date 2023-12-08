@@ -16,7 +16,7 @@ let signUp = async (req, res, next) => {
             body('password').escape(),
         ];
 
-        // Run validation middleware
+        // Run validation middleware 
         await Promise.all(validate.map(validation => validation.run(req)));
 
         // Check for validation errors
