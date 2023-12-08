@@ -4,7 +4,6 @@ const cloudinaryService = require("../service").cloudinaryService
 
 const uploadImage = async (req, res, next) => {
     try {
-        console.log("cloudinary controoler" + req.body.imageUrl)
         const imageUrl = req.body.imageUrl
 
         const { public_id, cloudinaryImgUrl } = await cloudinaryService.uploadImage(imageUrl)

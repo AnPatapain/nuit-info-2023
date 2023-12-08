@@ -89,8 +89,6 @@ const deleteOne = async (req, res, next) => {
     try {
         const profileId = req.params.profileId
         const profile = await profileService.getFromProfileId(profileId)
-        console.log(profile.userId._id)
-        console.log(req.userId)
         if (!profile.userId._id.equals(req.userId)) {
             return res.status(403).json({ "error": "You are not owner of this profile" })
         }

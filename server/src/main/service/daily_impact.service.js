@@ -31,7 +31,6 @@ let createOne = async (dailyImpactData, userId) => {
     dailyImpact.profileId = profile._id
 
     await profile.save()
-    console.log("profile", profile)
     return await dailyImpact.save()
 };
 

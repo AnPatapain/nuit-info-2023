@@ -56,7 +56,6 @@ let signIn = async (data) => {
     if (data.session) {
         data.session.token = token
         await data.session.save()
-        console.log("session token is set")
     }
     return {
         id: existingUser._id,
