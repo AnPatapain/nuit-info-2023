@@ -3,7 +3,7 @@ const appConfig = {
     apiPrefix: process.env.NODE_ENV === 'production' ?
         'https://nuitinfo-backend-dragon-4d105301931d.herokuapp.com/api' : "http://localhost:8080/api",
     // apiPrefix: "/api",
-    authenticatedEntryPath: '/home',
+    authenticatedEntryPath: '/facts',
     unAuthenticatedEntryPath: '/sign-in',
     tourPath: '/',
     locale: 'en',

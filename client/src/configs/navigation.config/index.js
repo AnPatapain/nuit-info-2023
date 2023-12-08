@@ -6,16 +6,6 @@ import {
 
 const navigationConfig = [
     {
-        key: 'home',
-        path: '/home',
-        title: 'Home',
-        translateKey: 'nav.home',
-        icon: 'home',
-        type: NAV_ITEM_TYPE_ITEM,
-        authority: [],
-        subMenu: [],
-    },
-    {
         key: 'profile',
         path: '/profile',
         title: 'Profile',
@@ -29,7 +19,7 @@ const navigationConfig = [
         key: 'fact',
         path: '/facts',
         title: 'Fact',
-        translateKey: 'nav.fact',
+        translateKey: 'fact.fact',
         icon: 'fact',
         type: NAV_ITEM_TYPE_ITEM,
         authority: [],

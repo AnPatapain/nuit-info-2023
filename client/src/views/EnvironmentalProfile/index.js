@@ -1,7 +1,7 @@
 import { Container } from 'components/shared'
 import { Card, Tooltip, Button } from 'components/ui'
 import React, { useEffect, useState } from 'react'
-import { apiGetDailyImpacts } from 'services/DailyImpactService'
+import { apiGetDailyImpacts , apiGetTreeLevel } from 'services/DailyImpactService'
 import { IoIosAddCircleOutline } from 'react-icons/io'
 import { t } from 'i18next'
 import EnvironmentalProfileForm from './components/EnvironmentalProfileForm'
@@ -9,15 +9,31 @@ import FactCard from "../Fact/components/FactCard";
 import DailyImpactCard from "./components/DailyImpactCard";
 const EnvironmentalProfile = () => {
   const [impacts, setImpacts] = useState([])
+  const [levels, setLevels] = useState(0)
+  const [imageIndex, setImageIndex] = useState(1)
   const [opened, setOpened] = useState(false);
 
   useEffect(() => {
     apiGetDailyImpacts().then((res) => {
-        console.log(res.data)
         setImpacts(res.data)
     })
+    apiGetTreeLevel().then((res) => {
+        setLevels(res.data)
+    })
   }, [])
-
+  useEffect(() => {
+    if (levels >= 0 && levels <= 20) {
+      setImageIndex(1)
+    } else if (levels >= 20 && levels <= 40) {
+      setImageIndex(2)
+    } else if (levels >= 40 && levels <= 60) {
+      setImageIndex(3)
+    } else if (levels >= 60 && levels <= 80) {
+      setImageIndex(4)
+    } else if (levels >= 80 && levels <= 100) {
+      setImageIndex(5)
+    }
+  }, [levels])
   const onClickAddNewFact = () => {
     setOpened(true)
   }
@@ -35,7 +51,25 @@ const EnvironmentalProfile = () => {
           onClick={onClickAddNewFact}
         ></Button>
       </Tooltip>
-
+      <div className='mt-10'>
+        <Card 
+          className="w-[200px] h-[300px] mx-auto"
+          bodyClass="w-[200px] h-[300px] mx-auto flex flex-col">
+            <div className="text-center text-lg flex flex-col">
+              <span>{t("impact.your_tree_level_depends_on_your_total_environmental_impact_points")}</span>
+                {t('impact.tree_level')} {imageIndex}
+            </div>  
+          <img src={`/img/plant/plant${1}.png`} alt="tree" 
+            style={{
+              width: '100px',
+              height: '300px',
+              // objectFit: 'contain',
+            }}
+          />
+          
+          
+        </Card>
+        </div>
         <div className="w-full flex flex-col gap-4 px-20">
             {impacts && impacts.length > 0 ? impacts.map((impact) => (
                     <DailyImpactCard impact={impact} key={impact._id}/> )) :
@@ -44,26 +78,7 @@ const EnvironmentalProfile = () => {
                 </div>
             }
         </div>
-      {/*{impacts && impacts.length > 0 ?*/}
-      {/*<div>*/}
-      {/*  {impacts.map((impact) => (*/}
-      {/*    <Card>*/}
-      {/*      <div>*/}
-      {/*        {impact.title}*/}
-      {/*      </div>*/}
-      {/*      <div>*/}
-      {/*        {impact.fact}*/}
-      {/*      </div>*/}
-      {/*      <div>*/}
-      {/*        {impact.image}*/}
-      {/*      </div>*/}
-      {/*      <div>*/}
-      {/*        {impact.vote}*/}
-      {/*      </div>*/}
-      {/*    </Card>*/}
-      {/*  ))}*/}
-      {/*</div>*/}
-      {/*: <div>{t('impact.no_impacts_yet')}</div>}*/}
+  
 
 
 
