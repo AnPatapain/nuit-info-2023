@@ -10,7 +10,8 @@ import {
 const navigationIcon = {
     home: <HiOutlineHome />,
     profile: <HiOutlineUser />,
-    project: <HiOutlineViewGridAdd />,
+    fact: <HiOutlineViewGridAdd />,
+    scrum: <HiOutlineTemplate />,
 }
 
 export default navigationIcon

@@ -14,10 +14,10 @@ const Cover = ({ children, content, ...rest }) => {
                 <Logo mode="dark" />
                 <div>
                     <h3 className="text-white mb-4">
-                        Jump start your project with ecohub
+                        Jump start your project with EcoHub
                     </h3>
                     <p className="text-lg text-white opacity-80 max-w-[700px]">
-                        ecohub comes with a complete set of UI components
+                        EcoHub comes with a complete set of UI components
                         crafted with Tailwind CSS, it fulfilled most of the use
                         case to create modern and beautiful UI and application
                     </p>

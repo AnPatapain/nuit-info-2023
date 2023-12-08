@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Input,
     Avatar,
@@ -96,6 +96,9 @@ const Profile = ({ data }) => {
         _id,
     } = useSelector((state) => state.profile)
     const { email } = useSelector((state) => state.auth.user)
+    useEffect(() => {
+        dispatch(getProfile());
+    }, [dispatch])
     const [isImageChanged, setIsImageChanged] = useState(false); 
     const isCreateState = !_id;
     const onSetFormFile = (form, field, files) => {

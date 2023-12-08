@@ -1,12 +1,10 @@
 import { Badge } from 'components/ui'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { setSelectedProject } from '../store/dataSlice'
 const IdeaCard = ({project}) => {
     const { _id,name, description, hashtag, techStack, demo, coordinator, desiredSize, queueList, members} = project
     const dispatch = useDispatch()
     const onClickIdeaCard = () => {
-        dispatch(setSelectedProject(project))
     }
     return (
         <div onClick={onClickIdeaCard} className="max-w-md mx-auto bg-white rounded-xl overflow-hidden md:max-w-2xl border border-gray-300 mb-4">

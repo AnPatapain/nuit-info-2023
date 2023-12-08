@@ -16,9 +16,9 @@ const environment = process.env.NODE_ENV
  * Set enableMock(Default false) to true at configs/app.config.js
  * If you wish to enable mock api
  */
-// if (environment !== 'production' && appConfig.enableMock) {
-//     mockServer({ environment })
-// }
+if (environment !== 'production' && appConfig.enableMock) {
+    mockServer({ environment })
+}
 
 function App() {
     return (

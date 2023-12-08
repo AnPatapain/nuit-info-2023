@@ -3,6 +3,7 @@ import { initReactI18next } from 'react-i18next'
 import en from './lang/en.json'
 import fr from './lang/fr.json'
 import vi from './lang/vi.json'
+import rot13 from './lang/rot13.json'
 import appConfig from 'configs/app.config'
 
 const resources = {
@@ -14,6 +15,9 @@ const resources = {
     },
     vi: {
         translation: vi,
+    },
+    rot13: {
+        translation: rot13,
     },
 }
 
@@ -30,6 +34,7 @@ export const dateLocales = {
     en: () => import('dayjs/locale/en'),
     fr: () => import('dayjs/locale/fr'),
     vi: () => import('dayjs/locale/vi'),
+    rot13: () => import('dayjs/locale/en'),
 }
 
 export default i18n

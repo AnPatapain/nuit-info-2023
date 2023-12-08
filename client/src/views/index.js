@@ -15,7 +15,6 @@ const { authenticatedEntryPath } = appConfig
 const AllRoutes = (props) => {
     const userAuthority = useSelector((state) => state.auth.user.authority)
     const profile = useSelector((state) => state.profile)
-    const isCreatedProfile = profile?._id
     return (
         <Routes>
             <Route element={<ProtectedRoute />}>

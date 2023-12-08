@@ -2,7 +2,7 @@
     "nav": {
         "home": "Home",
         "profile": "Profile",
-        "project": "Project",
+        "fact": "Fact",
         "language": "Language"
     },
     "config": {

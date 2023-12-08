@@ -13,7 +13,8 @@ import { HiCheck } from 'react-icons/hi'
 const languageList = [
     { label: 'English', value: 'en', flag: 'us' },
     { label: 'Français', value: 'fr', flag: 'fr' },
-    { label: 'Tiếng Việt', value: 'vi', flag: 'vi' }
+    { label: 'Tiếng Việt', value: 'vi', flag: 'vi' },
+    { label: 'ROT13', value: 'rot13', flag: 'rot13' },
 ]
 
 export const LanguageSelector = ({ className }) => {

@@ -17,9 +17,15 @@ export const protectedRoutes = [
         authority: [],
     },
     {
-        key: 'project',
-        path: '/project',
-        component: React.lazy(() => import('views/Project')),
+        key: 'facts',
+        path: '/facts',
+        component: React.lazy(() => import('views/Fact')),
+        authority: [],
+    },
+    {
+        key: 'scrum',
+        path: '/scrum',
+        component: React.lazy(() => import('views/ScrumBoard')),
         authority: [],
     },
 ]
