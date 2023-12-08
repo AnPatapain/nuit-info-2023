@@ -75,7 +75,7 @@ const addDailyFact = async (profileId, dailyFactId) => {
     if (!profile) {
         throw new Error(`Profile with ID ${profileId} not found`);
     }
-    profile.dailyFacts.push(dailyFactId)
+    await profile.dailyFacts.push(dailyFactId)
     await profile.save()
 }
 const removeDailyFact = async (profileId, dailyFactId) => {
@@ -85,7 +85,7 @@ const removeDailyFact = async (profileId, dailyFactId) => {
         throw new Error(`Profile with ID ${profileId} not found`);
     }
     // Remove the DailyFact by ID from the dailyFacts array
-    profile.dailyFacts.pull(dailyFactId);
+    await profile.dailyFacts.pull(dailyFactId);
     // Save the updated profile
     await profile.save();
 }
