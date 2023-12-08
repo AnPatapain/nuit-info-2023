@@ -88,6 +88,7 @@ const Fact = () => {
     useEffect(() => {
       const getFacts = async () => {
         const response = await apiGetDailyFacts();
+        console.log(response.data);
         setFacts(response.data);
       }
       getFacts();
@@ -110,7 +111,7 @@ const Fact = () => {
             </div>
 
             <div className="w-full flex flex-col gap-4 px-20">
-                {facts && facts.length > 0 ? mockData.map((fact) => (
+                {facts && facts.length > 0 ? facts.map((fact) => (
                     <FactCard fact={fact} key={fact.profileId}/> )) : 
                     <div className="text-center text-lg text-gray-400 dark:text-gray-600">
                         {t('fact.no_fact')}

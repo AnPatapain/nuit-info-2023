@@ -11,6 +11,7 @@ const navigationIcon = {
     home: <HiOutlineHome />,
     profile: <HiOutlineUser />,
     fact: <HiOutlineViewGridAdd />,
+    environmental_profile: <HiOutlineColorSwatch />,
 }
 
 export default navigationIcon

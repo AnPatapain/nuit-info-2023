@@ -1,28 +1,39 @@
 import { Card, Button, Tooltip } from 'components/ui'
 import React, { useState, useRef } from 'react'
-import { BiUpvote, BiSolidUpvote, BiDownvote } from "react-icons/bi";
 import { t } from 'i18next'
+import { apiChangeVote } from 'services/FactService'
+import { RiCelsiusFill } from "react-icons/ri";
+
 function FactCard({ fact }) {
+  console.log(fact._id);
+    const upvoteHandler = async () => {
+        await apiChangeVote({ dailyFactId: fact._id, vote : 1 })
+    }
+    const downvoteHandler = async () => {
+        await apiChangeVote({ dailyFactId: fact._id, vote : -1})
+    }
     return (
       <Card 
         className="card flex flex-col w-full max-w-[700px] mx-auto my-4 p-4"
         bodyClass="flex flex-col justify-between"
         >
-          <div>
-              <h3>{fact.title}</h3>
-              <p>{fact.fact}</p>
+          <div className='flex items-center justify-between'>
+              <div>
+                <h3>{fact.title}</h3>
+                <p>{fact.fact}</p>
+              </div>
+              <div className='flex items-center text-xl font-bold'>
+                {fact.vote}
+                <RiCelsiusFill/>
+              </div>
           </div>
           <img src={fact.image} alt={fact.name} className="w-full mx-auto" />
           <div className='flex items-center gap-4 mt-4'>
-            <Button className="flex items-center justify-center">
-              <Tooltip title={t('fact.upvote')} placement="bottom">
-                <BiUpvote/>
-              </Tooltip>
+            <Button className="flex items-center justify-center" variant="solid" onClick={upvoteHandler}>
+              {t('fact.true')}
             </Button>
-            <Button className="flex items-center justify-center">
-              <Tooltip title={t('fact.downvote')} placement="bottom">
-                <BiDownvote/>
-              </Tooltip>
+            <Button className="flex items-center justify-center" variant="default" onClick={downvoteHandler}>
+              {t('fact.false')}
             </Button>
           </div>
             

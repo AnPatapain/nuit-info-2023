@@ -35,6 +35,16 @@ const navigationConfig = [
         authority: [],
         subMenu: [],
     },
+    {
+        key: 'environmental_profile',
+        path: '/environmental-profile',
+        title: 'Environmental Profile',
+        translateKey: 'nav.environmental_profile',
+        icon: 'environmental_profile',
+        type: NAV_ITEM_TYPE_ITEM,
+        authority: [],
+        subMenu: [],
+    },
 ]
 
 export default navigationConfig
