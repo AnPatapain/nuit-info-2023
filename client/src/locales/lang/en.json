@@ -3,7 +3,8 @@
         "home": "Home",
         "profile": "Profile",
         "fact": "Fact",
-        "language": "Language"
+        "language": "Language",
+        "environmental_profile":"environmental profile"
     },
     "config": {
         "theme": "Theme",
@@ -63,7 +64,8 @@
         "share_your_daily_fact": "Share your daily fact",
         "today_new_fact": "Today New Fact",
         "daily_fact": "Daily Fact",
-        "image": "Image"
+        "image": "Image",
+        "no_fact": "No fact"
     },
     "actions": {
         "reset": "Reset",
@@ -85,5 +87,8 @@
         "upload": "Upload",
         "submit": "Submit",
         "submitting": "Submitting"
+    },
+    "impact":{
+        "environmental_impact":"environmental impact"
     }
 }

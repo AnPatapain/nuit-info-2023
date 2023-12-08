@@ -3,7 +3,8 @@
       "home": "Ubzr",
       "profile": "Cebtenzz",
       "project": "Cebwrpg",
-      "language": "Ynathneq"
+      "language": "Ynathneq",
+      "environmental_profile":"raivebazragny cebsvyr"
   },
   "config": {
       "theme": "Gurzn",
@@ -33,6 +34,21 @@
       "pink": "Cvax",
       "rose": "Ebfr"
   },
+  "fact": {
+    "too_short": "Gbb fpubby",
+    "too_long": "Gbb ybat",
+    "fact_required": "Snpgr erpheerq",
+    "title_required": "Gvgr erpheerq",
+    "title": "Gvgr",
+    "fact": "Snpgr",
+    "enter_fact": "Ragre snpgr",
+    "fact_description": "Snpgr Qrfpevcgvba",
+    "share_your_daily_fact": "Funer lbhe qnlryr snpgr",
+    "today_new_fact": "Gurjf Arj Snpgr",
+    "daily_fact": "Qnlryr Snpgr",
+    "image": "Vznt",
+    "no_fact": "Abg pbz"
+},
   "profile": {
       "profile_created": "Cebtenzz Perqvqrq",
       "profile_updated": "Cebtenzz Hcqngrq",
@@ -68,5 +84,8 @@
       "view": "Ibvy",
       "browse": "Oevgrer",
       "upload": "Hacber"
+  },
+  "impact":{
+    "environmental_impact":"raivebazragny vzcnpg"
   }
 }
