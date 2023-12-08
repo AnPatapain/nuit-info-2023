@@ -8,6 +8,10 @@ const profileSchema = new mongoose.Schema({
     dailyFacts: [
         { type: mongoose.Schema.ObjectId, ref: 'DailyFact', required: true }
     ],
+    daily_impacts: [
+        {type: mongoose.Schema.ObjectId, ref: 'DailyImpact', required: true}
+    ],
+    impact_points: { type: Number, default: 0 },
     comments: [
         {
             type: mongoose.Schema.ObjectId, ref: 'Comment', required: true

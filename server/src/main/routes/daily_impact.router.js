@@ -9,7 +9,11 @@ router.route("/daily-impacts")
     .get([jwtAuth, roleAuth.isUser], dailyImpactController.getAll)
     .post([jwtAuth, roleAuth.isUser], dailyImpactController.createOne);
 
+router.route("/daily-impacts/today")
+    .get([jwtAuth, roleAuth.isUser], dailyImpactController.getToday)
+
 router.route("/daily-impacts/:dailyImpactId")
     .get([jwtAuth, roleAuth.isUser], dailyImpactController.getOne)
+
 
 module.exports = router;

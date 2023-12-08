@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const dailyImpactSchema = new mongoose.Schema({
+    profileId: { type: mongoose.Schema.Types.ObjectId, ref: 'Profile', require: true },
     transportation: {
         public_transport_km: Number,
         walking_km: Number,
@@ -14,7 +15,8 @@ const dailyImpactSchema = new mongoose.Schema({
         delete_spam_email_numbers: Number,
         eco_search_engine_hour: Number,
     },
-}, { timestamps: true });
+    timeStamp: { type: Date, required: true }
+});
 
 const DailyImpact = mongoose.model('DailyImpact', dailyImpactSchema);
 

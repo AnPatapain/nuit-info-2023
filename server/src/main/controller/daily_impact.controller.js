@@ -29,7 +29,8 @@ const createOne = async (req, res, next) => {
             digital_habit
         };
 
-        const createdDailyImpact = await dailyImpactService.createOne(dailyImpactData);
+        console.log(dailyImpactData)
+        const createdDailyImpact = await dailyImpactService.createOne(dailyImpactData, req.userId);
 
         res.status(201).json(createdDailyImpact);
     } catch (error) {
@@ -37,8 +38,18 @@ const createOne = async (req, res, next) => {
     }
 };
 
+const getToday = async (req, res, next) => {
+    try {
+        const daily_impacts = await dailyImpactService.getToday(req.userId)
+        res.status(200).json(daily_impacts)
+    }catch(err) {
+        next(err)
+    }
+}
+
 module.exports = {
     getAll,
     getOne,
-    createOne
+    createOne,
+    getToday
 };
