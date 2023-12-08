@@ -7,6 +7,7 @@ const db = {
     profile: require('./profile'),
     project: require("./project"),
     notification: require("./notification"),
+    daily_impact: require("./daily_impact"),
     ROLES: DB_ROLES
 }
 module.exports = db
