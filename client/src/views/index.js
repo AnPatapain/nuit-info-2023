@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { Loading } from 'components/shared'
 import { protectedRoutes, publicRoutes } from 'configs/routes.config'
 import appConfig from 'configs/app.config'
@@ -9,7 +9,8 @@ import ProtectedRoute from 'components/route/ProtectedRoute'
 import PublicRoute from 'components/route/PublicRoute'
 import AuthorityGuard from 'components/route/AuthorityGuard'
 import AppRoute from 'components/route/AppRoute'
-
+import { Dialog } from 'components/ui'
+import charlie from 'assets/images/charlie.png'
 const { authenticatedEntryPath } = appConfig
 
 const AllRoutes = (props) => {
@@ -62,9 +63,19 @@ const AllRoutes = (props) => {
 }
 
 const Views = (props) => {
+    const { themeColor, primaryColorLevel } = useSelector((state) => state.theme)
+    const [opened, setOpened] = React.useState(false)
+    useEffect(() => {
+        if (themeColor === "green" && primaryColorLevel >=400 && primaryColorLevel <= 600) {
+            setOpened(true)
+        }
+    }, [themeColor, primaryColorLevel])
     return (
         <Suspense fallback={<Loading loading={true} />}>
             <AllRoutes {...props} />
+            <Dialog isOpen={opened} closable={false}>
+                <img src={charlie} alt="charlie" className='w-full h-full'/>
+            </Dialog>
         </Suspense>
     )
 }

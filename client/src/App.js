@@ -20,10 +20,7 @@ const environment = process.env.NODE_ENV
 //     mockServer({ environment })
 // }
 
-
-
 function App() {
-
     return (
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>

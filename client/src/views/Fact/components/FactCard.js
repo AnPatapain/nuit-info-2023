@@ -5,7 +5,6 @@ import { apiChangeVote } from 'services/FactService'
 import { RiCelsiusFill } from "react-icons/ri";
 
 function FactCard({ fact }) {
-  console.log(fact._id);
     const upvoteHandler = async () => {
         await apiChangeVote({ dailyFactId: fact._id, vote : 1 })
     }
