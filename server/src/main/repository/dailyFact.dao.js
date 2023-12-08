@@ -65,43 +65,48 @@ const getToday = async (ids) => {
 }
 const addUpvote = async (profileId, id) => {
     const dailyFact = await DailyFact.findById(id)
-    dailyFact.upVotes.push(profileId)
+    await DailyFact.updateOne(
+        { _id: id },
+        { $push: { upVotes: { profileId: profileId } } }
+    );
     await dailyFact.save()
 }
 const removeUpvote = async (profileId, id) => {
     const dailyFact = await DailyFact.findById(id)
-    await dailyFact.upVotes.pull(profileId)
+    await DailyFact.updateOne(
+        { _id: id },
+        { $pull: { upVotes: { profileId: profileId } } }
+    );
     await dailyFact.save()
 }
 
 const addDownvote = async (profileId, id) => {
     const dailyFact = await DailyFact.findById(id)
-    dailyFact.downVotes.push(profileId)
+    await DailyFact.updateOne(
+        { _id: id },
+        { $push: { downVotes: { profileId: profileId } } }
+    );
     await dailyFact.save()
 }
 
 const removeDownvote = async (profileId, id) => {
     const dailyFact = await DailyFact.findById(id)
-    await dailyFact.downVotes.pull(profileId)
+    await DailyFact.updateOne(
+        { _id: id },
+        { $pull: { downVotes: { profileId: profileId } } }
+    );
     await dailyFact.save()
 }
 const isUpvote = async (profileId, id) => {
     const dailyFact = await DailyFact.findById(id);
-    if (!dailyFact) {
-        console.log("not found dailyFact");
-        throw new Error("inside check")
-    }
 
-    const isUpvote = dailyFact.upVotes.some(upVote => upVote._id === profileId);
+    const isUpvote = dailyFact.upVotes.some(upVote => upVote.profileId.toString() === profileId.toString())
     return isUpvote;
 }
 const isDownvote = async (profileId, id) => {
     const dailyFact = await DailyFact.findById(id);
-    if (!dailyFact) {
-        console.log("not found dailyFact");
-        throw new Error("inside check")
-    }
-    const isDownvote = dailyFact.downVotes.some(downVote => downVote._id === profileId);
+
+    const isDownvote = dailyFact.downVotes.some(downVote => downVote.profileId.toString() === profileId.toString());
     return isDownvote;
 }
 let dailyFactDAO = {
