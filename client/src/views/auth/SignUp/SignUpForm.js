@@ -36,7 +36,6 @@ const SignUpForm = (props) => {
         } catch (error) {
         }
         
-        console.log('sign up');
 
         setSubmitting(false)
     }

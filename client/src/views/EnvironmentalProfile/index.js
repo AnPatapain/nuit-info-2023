@@ -13,7 +13,6 @@ const EnvironmentalProfile = () => {
 
   useEffect(() => {
     apiGetDailyImpacts().then((res) => {
-        console.log(res.data)
         setImpacts(res.data)
     })
   }, [])
