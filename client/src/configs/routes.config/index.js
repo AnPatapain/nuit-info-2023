@@ -22,4 +22,10 @@ export const protectedRoutes = [
         component: React.lazy(() => import('views/Fact')),
         authority: [],
     },
+    {
+        key: 'environmental_profile',
+        path: '/environmental-profile',
+        component: React.lazy(() => import('views/EnvironmentalProfile')),
+        authority: [],
+    }
 ]

@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken")
-const authConfig = require("../config/auth.config")
-const errorHandler = require("../errors/errorHandler")
-const UnauthorizedError = require("../errors/UnauthorizedError")
+const { body, validationResult } = require('express-validator');
+const { JWT_SECRET } = process.env
+
+
 
 let verifytoken = async (req, res, next) => {
     try {
@@ -9,9 +10,10 @@ let verifytoken = async (req, res, next) => {
         //authen with session
         // const token = req.session.token
         //authen with header
+
         const authHeader = req.headers['authorization'];
         const token = authHeader && authHeader.split(' ')[1];
-        const jwtReturn = await jwt.verify(token, authConfig.secret);
+        const jwtReturn = await jwt.verify(token, JWT_SECRET);
         req.userId = jwtReturn.id
         return next()
     } catch (err) {

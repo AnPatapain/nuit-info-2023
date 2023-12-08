@@ -7,7 +7,9 @@ import {
     FormItem,
     FormContainer,
     hooks,
-    Upload
+    Upload,
+    toast,
+    Notification
 } from 'components/ui'
 import blobUrlToFile from 'utils/blobUrlToFile'
 import { Field, Form, Formik, useField } from 'formik'
@@ -17,6 +19,7 @@ import * as Yup from 'yup'
 import { FaGithub, FaStackOverflow } from "react-icons/fa";
 import { t } from 'i18next'
 import FormRow from './FormRow'
+import { apiCreateNewDailyFact } from 'services/FactService'
 const validationSchema = Yup.object().shape({
     title: Yup.string().min(3, t("fact.too_short")).required(t("fact.title_required")),
     fact: Yup.string().min(3, t("fact.too_short")).required(t("fact.fact_required")),
@@ -70,6 +73,21 @@ const NewIdeaForm = () => {
         } catch (error) {
             console.log(error);
         }
+
+        try {
+            const res = await apiCreateNewDailyFact(formData);
+            if (res.status === 201 || res.status === 200) {
+
+                toast.push(<Notification title={t('fact.fact_posted')} type="success" />, {
+                    placement: 'top-center',
+                })
+            }
+        } catch (error) {
+            toast.push(<Notification title={error.response.data.message} type="danger" />, {
+                placement: 'top-center',
+            })
+        }
+        setSubmitting(false)
     }
 
     return (

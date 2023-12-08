@@ -51,7 +51,7 @@ let signIn = async (data) => {
         JWT_SECRET,
         {
             algorithm: "HS256",
-            expiresIn: 86400
+            expiresIn: 4 * 60 * 60
         });
     if (data.session) {
         data.session.token = token

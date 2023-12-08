@@ -1,8 +1,8 @@
 import ApiService from './ApiService'
 
-export async function apiGetDailyDailyFacts(data) {
+export async function apiGetDailyFacts(data) {
     return ApiService.fetchData({
-        url: '/daily-facts',
+        url: '/dailyFact/all',
         method: 'get',
         data,
     })
@@ -10,38 +10,17 @@ export async function apiGetDailyDailyFacts(data) {
 
 export async function apiCreateNewDailyFact(data) {
   return ApiService.fetchData({
-      url: '/daily-facts',
+      url: '/dailyFact/',
       method: 'post',
       data,
   })
 }
 
-export async function apiGetDailyFactById(data) {
+export async function apiChangeVote(data) {
   return ApiService.fetchData({
-      url: `/daily-facts/${data.dailyFactId}`,
-      method: 'get',
-      data,
-  })
-}
-
-export async function apiUpdateDailyFactById(data) {
-  return ApiService.fetchData({
-      url: `/daily-facts/${data.dailyFactId}`,
-      method: 'put',
-      data,
-  })
-}
-export async function apiDeleteDailyFactById(data) {
-  return ApiService.fetchData({
-      url: `/daily-facts/${data.dailyFactId}`,
-      method: 'delete',
-      data,
-  })
-}
-export async function apiJoinToDailyFact(data) {
-  return ApiService.fetchData({
-      url: `/daily-facts/join/${data.dailyFactId}`,
+      url: `/dailyFact/${data.dailyFactId}`,
       method: 'post',
       data,
   })
 }
+
