@@ -1,4 +1,5 @@
 const db = require("../model")
+const lodash = require('lodash')
 const DailyFact = db.dailyFact
 
 const createOne = async (data) => {
@@ -16,6 +17,7 @@ const createOne = async (data) => {
     return newDailyFact
 }
 
+
 const findById = async (id) => {
     return DailyFact.findById(id)
 }
@@ -23,9 +25,25 @@ const getAll = async () => {
     return DailyFact.find()
 }
 
+
 const deleteById = async (id) => {
     const dailyFact = await DailyFact.findByIdAndDelete(id);
     return dailyFact
+}
+const getPageRandom = async (page, pageSize) => {
+    const allDailyFact = await DailyFact.find()
+    const shuffleDailyFact = lodash.shuffle(allDailyFact)
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = startIndex + pageSize
+    const paginatedDailyFacts = shuffleDailyFact.slice(startIndex, endIndex);
+    return paginatedDailyFacts;
+}
+const getPage = async (page, pageSize) => {
+    const dailyFacts = await DailyFact.aggregate([
+        { $skip: pageSize * page },
+        { $limit: pageSize }
+    ]).exec();
+    return dailyFacts
 }
 const getToday = async (ids) => {
     const today = Date.now();
@@ -49,6 +67,8 @@ let dailyFactDAO = {
     getAll,
     deleteById,
     getToday,
+    getPage,
+    getPageRandom,
 }
 
 module.exports = dailyFactDAO
